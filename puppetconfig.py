@@ -37,7 +37,7 @@ def main():
     print("this is main")
     #do_list(table_service, table_name)
     #do_show_machine(table_service, table_name, 'puppetserver')
-    do_set_fact(table_service, table_name, 'puppetserver', 'fact1', 'value1')
+    do_set_fact(table_service, table_name, 'puppetserver', 'fact1', 'value2')
 
     # Done
     sys.exit(0)
