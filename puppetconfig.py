@@ -35,7 +35,8 @@ def main():
 
     # Perform function here
     print("this is main")
-    do_list(table_service, table_name)
+    #do_list(table_service, table_name)
+    do_show_machine(table_service, table_name, 'puppetserver')
 
     # Done
     sys.exit(0)
