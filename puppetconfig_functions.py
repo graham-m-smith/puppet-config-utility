@@ -11,23 +11,22 @@ def do_list(table_service, table_name):
 # Function to list the facts for a specific machine
 def do_show_machine(table_service, table_name, machine):
 
-    query = "PartitionKey eq 'PuppetCfg' and RowKey eq '" + machine + "'"
-    data = table_service.query_entities(table_name, query)
-    for record in data:
-        print("Facts for machine", machine)
-        for key in record.keys():
-            if key == 'PartitionKey' or key == 'Timestamp' or key == 'etag':
-                continue
+    #query = "PartitionKey eq 'PuppetCfg' and RowKey eq '" + machine + "'"
+    #data = table_service.query_entities(table_name, query)
+    #for record in data:
+    record = table_service(table_name, 'PuppetCfg', machine)
+    print("Facts for machine", machine)
+    for key in record.keys():
+        if key == 'PartitionKey' or key == 'Timestamp' or key == 'etag':
+            continue
 
-            value = record[key]
-            print(key,':',value)
+        value = record[key]
+        print(key,':',value)
 
 # Function to set fact for a machine
 def do_set_fact(table_service, table_name, machine, fact, value):
 
     # Get existing data for this machine
-    query = "PartitionKey eq 'PuppetCfg' and RowKey eq '" + machine + "'"
-    #data = table_service.query_entities(table_name, query)
     record = table_service.get_entity(table_name, 'PuppetCfg', machine)
     record[fact] = value
     print(record)
