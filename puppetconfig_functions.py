@@ -15,4 +15,5 @@ def do_show_machine(table_service, table_name, machine):
 
     query = "PartitionKey eq 'PuppetCfg' and RowKey eq '" + machine + "'"
     data = table_service.query_entities(table_name, query)
-    print(data)
+    for record in data:
+        print(record)
