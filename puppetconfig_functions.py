@@ -31,4 +31,4 @@ def do_set_fact(table_service, table_name, machine, fact, value):
     record = table_service.get_entity(table_name, 'PuppetCfg', machine)
     record[fact] = value
     print(record)
-    #table_service.insert_or_replace_entity(table_name, record)
+    table_service.insert_or_replace_entity(table_name, record)
