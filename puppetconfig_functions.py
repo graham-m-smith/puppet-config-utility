@@ -28,6 +28,6 @@ def do_set_fact(table_service, table_name, machine, fact, value):
     # Get existing data for this machine
     query = "PartitionKey eq 'PuppetCfg' and RowKey eq '" + machine + "'"
     #data = table_service.query_entities(table_name, query)
-    data = table_service.get_entity(table_name, 'PuppetCfg', machine)
-    #record = data[0]
-    print(data)
+    record = table_service.get_entity(table_name, 'PuppetCfg', machine)
+    record[fact] = value
+    table_service.insert_or_replace_entity(table_name, record)
