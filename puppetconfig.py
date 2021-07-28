@@ -3,6 +3,7 @@
 import os
 import sys
 from azure.cosmosdb.table.tableservice import TableService
+from puppetconfig_functions import *
 
 # Check that required environment variables are set
 
@@ -34,6 +35,7 @@ def main():
 
     # Perform function here
     print("this is main")
+    do_list()
 
     # Done
     sys.exit(0)
