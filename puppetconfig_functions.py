@@ -11,9 +11,7 @@ def do_list(table_service, table_name):
 # Function to list the facts for a specific machine
 def do_show_machine(table_service, table_name, machine):
 
-    #query = "PartitionKey eq 'PuppetCfg' and RowKey eq '" + machine + "'"
-    #data = table_service.query_entities(table_name, query)
-    #for record in data:
+    # Get data for this machine from Azure Table
     record = table_service.get_entity(table_name, 'PuppetCfg', machine)
     print("Facts for machine", machine)
     for key in record.keys():
@@ -23,7 +21,7 @@ def do_show_machine(table_service, table_name, machine):
         value = record[key]
         print(key,':',value)
 
-# Function to set fact for a machine
+# Function to add/set a fact for a machine
 def do_set_fact(table_service, table_name, machine, fact, value):
 
     # Get existing data for this machine
