@@ -1,4 +1,4 @@
-def do_list(table_service):
+def do_list(table_service, table_name):
     print("this is do_list")
 
     # Get data from Azure Table
