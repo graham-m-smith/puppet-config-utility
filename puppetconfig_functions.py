@@ -16,4 +16,10 @@ def do_show_machine(table_service, table_name, machine):
     query = "PartitionKey eq 'PuppetCfg' and RowKey eq '" + machine + "'"
     data = table_service.query_entities(table_name, query)
     for record in data:
-        print(record)
+        print("Facts for machine", machine)
+        for key in record.keys():
+            if key == 'PartitionKey' or key == 'Timestamp' or key == 'etag':
+                continue
+
+            value = record[key]
+            print(key,':',value)
