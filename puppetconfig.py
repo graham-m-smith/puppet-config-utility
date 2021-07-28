@@ -35,7 +35,7 @@ def main():
 
     # Perform function here
     print("this is main")
-    do_list()
+    do_list(table_service)
 
     # Done
     sys.exit(0)
