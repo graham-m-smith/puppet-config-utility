@@ -34,16 +34,30 @@ table_service = TableService(account_name=sa_account_name, sas_token=sas_token)
 
 def main():
 
-    valid_actions = ['list-machines', 'show-machine']
+    #valid_actions = ['list-machines', 'show-machine']
     parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(help='commands')
 
-    parser.add_argument('action', help='action to perform', type=str, choices=valid_actions)
+    # list-machines command
+    list_machines_parser = subparsers.add_parser('list-machines', help='List Machines')
+
+    # show-machines command
+    show_machines_parser = subparsers.add_parser('show-machine', help='Show Machine Detail')
+    show_machines_parser.add_argument('machine', action='store', help='Machine Name')
+
+    #parser.add_argument('--action', help='action to perform', type=str, choices=valid_actions)
+    #parser.add_argument('--machine')
 
     args = parser.parse_args()
 
-    print(args.action)
+    print(args)
 
     # Perform function here
+
+    #if args.action == 'list-machines':
+    #    do_list(table_service, table_name)
+    #elif args.action == 'show-machine':
+
     
     #do_list(table_service, table_name)
     #do_show_machine(table_service, table_name, 'puppetserver')
