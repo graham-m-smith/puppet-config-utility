@@ -1,0 +1,5 @@
+---
+puppetconfig:
+    sa_account_name:
+    table_name:
+    sas_token:
