@@ -34,11 +34,11 @@ table_service = TableService(account_name=sa_account_name, sas_token=sas_token)
 def main():
 
     # Perform function here
-    print("this is main")
+    
     #do_list(table_service, table_name)
-    do_show_machine(table_service, table_name, 'puppetserver')
+    #do_show_machine(table_service, table_name, 'puppetserver')
     #do_set_fact(table_service, table_name, 'puppetserver', 'fact1', 'value2')
-    #do_delete_fact
+    do_delete_fact(table_service, table_name, 'puppetserver', 'fact1')
     #do_add_machine
     #do_delete_machine
 

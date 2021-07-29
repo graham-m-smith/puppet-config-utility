@@ -29,3 +29,12 @@ def do_set_fact(table_service, table_name, machine, fact, value):
     record[fact] = value
     print(record)
     table_service.insert_or_replace_entity(table_name, record)
+
+# Function to delete a fact for a machine
+def do_delete_fact(table_service, table_name, machine, fact):
+
+    # Get existing data for this machine
+    record = table_service.get_entity(table_name, 'PuppetCfg', machine)
+    record.del(fact)
+    print(record)
+    table_service.insert_or_replace_entity(table_name, record)
