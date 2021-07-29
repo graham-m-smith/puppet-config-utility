@@ -68,7 +68,7 @@ def main():
     elif args.command_type == 'show-machine':
         do_show_machine(table_service, table_name, args.machine)
 
-    elif args.command_tyoe == 'set-fact':
+    elif args.command_type == 'set-fact':
         do_set_fact(table_service, table_name, args.machine, args.fact, args.value)
 
     
