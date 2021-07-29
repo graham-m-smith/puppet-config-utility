@@ -62,9 +62,10 @@ def main():
 
     # Perform function here
 
-    #if args.action == 'list-machines':
-    #    do_list(table_service, table_name)
-    #elif args.action == 'show-machine':
+    if args.command_type == 'list-machines':
+        do_list(table_service, table_name)
+    elif args.command_type == 'show-machine':
+        do_show_machine(table_service, table_name, args.machine)
 
     
     #do_list(table_service, table_name)
