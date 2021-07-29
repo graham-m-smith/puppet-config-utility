@@ -64,18 +64,22 @@ def main():
 
     args = parser.parse_args()
 
+    # Load settings from config file
+    
     config_file = '/etc/puppetconfig.yml'
+    if not os.path.exists(config_file):
+        print("Config file", config_file, "does not exist")
+        sys.exit(2)
+
     with open(config_file, "r") as configyml:
         cfg = yaml.safe_load(configyml)
+
+    # Initialise Variables
 
     sa_account_name = cfg['puppetconfig']['sa_account_name']
     table_name = cfg['puppetconfig']['table_name']
     sas_token = cfg['puppetconfig']['sas_token']
     table_service = TableService(account_name=sa_account_name, sas_token=sas_token)
-
-    print("sa_account_name:", sa_account_name)
-    print("table_name:", table_name)
-    print("sas_token:", sas_token)
 
     # Perform function here
 
