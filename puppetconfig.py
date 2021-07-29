@@ -2,6 +2,7 @@
 
 import os
 import sys
+import argparse
 from azure.cosmosdb.table.tableservice import TableService
 from puppetconfig_functions import *
 
@@ -33,12 +34,21 @@ table_service = TableService(account_name=sa_account_name, sas_token=sas_token)
 
 def main():
 
+    valid_actions = ['list-machines', 'show-machine']
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('action', 'action to perform', type=str, choices=valid_actions)
+
+    args = parser.parse_args()
+
+    print(args.action)
+
     # Perform function here
     
     #do_list(table_service, table_name)
     #do_show_machine(table_service, table_name, 'puppetserver')
     #do_set_fact(table_service, table_name, 'puppetserver', 'fact1', 'value2')
-    do_delete_fact(table_service, table_name, 'puppetserver', 'fact1')
+    #do_delete_fact(table_service, table_name, 'puppetserver', 'fact1')
     #do_add_machine
     #do_delete_machine
 
