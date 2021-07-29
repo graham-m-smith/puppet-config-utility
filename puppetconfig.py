@@ -37,7 +37,7 @@ def main():
     valid_actions = ['list-machines', 'show-machine']
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('action', 'action to perform', type=str, choices=valid_actions)
+    parser.add_argument('action', help='action to perform', type=str, choices=valid_actions)
 
     args = parser.parse_args()
 
