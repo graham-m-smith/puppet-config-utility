@@ -53,7 +53,12 @@ def main():
     sa_account_name = cfg['puppetconfig']['sa_account_name']
     table_name = cfg['puppetconfig']['table_name']
     sas_token = cfg['puppetconfig']['sas_token']
-    table_service = TableService(account_name=sa_account_name, sas_token=sas_token)
+    
+    try:
+        table_service = TableService(account_name=sa_account_name, sas_token=sas_token)
+    except:
+        print("Error creating TableService object")
+        sys.exit(2)
 
     # Perform function here
 
