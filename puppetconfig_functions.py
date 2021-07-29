@@ -35,6 +35,6 @@ def do_delete_fact(table_service, table_name, machine, fact):
 
     # Get existing data for this machine
     record = table_service.get_entity(table_name, 'PuppetCfg', machine)
-    record.del(fact)
+    del record[fact]
     print(record)
     table_service.insert_or_replace_entity(table_name, record)
