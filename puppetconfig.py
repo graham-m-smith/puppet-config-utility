@@ -47,8 +47,13 @@ def main():
     show_machine_parser.set_defaults(command_type='show-machine')
     show_machine_parser.add_argument('machine', action='store', help='Machine Name')
 
-    #parser.add_argument('--action', help='action to perform', type=str, choices=valid_actions)
-    #parser.add_argument('--machine')
+    # set-fact command
+    set_fact_parser = subparsers.add_parser('set-fact', help='Set fact value for a machine')
+    set_fact_parser.set_defaults(command_type='set-fact')
+    set_fact_parser.add_argument('machine', action='store', help='Machine Name')
+    set_fact_parser.add_argument('fact', action='store', help='Fact Name')
+    set_fact_parser.add_argument('value', action='store', help='Fact Value')
+
 
     args = parser.parse_args()
 
