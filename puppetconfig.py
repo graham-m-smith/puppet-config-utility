@@ -40,10 +40,12 @@ def main():
 
     # list-machines command
     list_machines_parser = subparsers.add_parser('list-machines', help='List Machines')
+    list_machines_parser.set_defaults(command_type='list-machines')
 
     # show-machines command
-    show_machines_parser = subparsers.add_parser('show-machine', help='Show Machine Detail')
-    show_machines_parser.add_argument('machine', action='store', help='Machine Name')
+    show_machine_parser = subparsers.add_parser('show-machine', help='Show Machine Detail')
+    show_machine_parser.set_defaults(command_type='show-machine')
+    show_machine_parser.add_argument('machine', action='store', help='Machine Name')
 
     #parser.add_argument('--action', help='action to perform', type=str, choices=valid_actions)
     #parser.add_argument('--machine')
@@ -51,7 +53,7 @@ def main():
     args = parser.parse_args()
 
     print(args)
-    print(args.type)
+    print(args.command_type)
 
     # Perform function here
 
