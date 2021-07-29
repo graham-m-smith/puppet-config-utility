@@ -34,7 +34,8 @@ table_service = TableService(account_name=sa_account_name, sas_token=sas_token)
 
 def main():
 
-    #valid_actions = ['list-machines', 'show-machine']
+    # Parse command line options
+
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(help='commands')
 
@@ -71,6 +72,8 @@ def main():
     elif args.command_type == 'set-fact':
         do_set_fact(table_service, table_name, args.machine, args.fact, args.value)
 
+    elif args.command_type == 'delete-fact':
+        do_delete_fact(table_service, table_name, args.machine, args.fact)
     
     #do_list(table_service, table_name)
     #do_show_machine(table_service, table_name, 'puppetserver')
