@@ -55,11 +55,13 @@ def main():
     set_fact_parser.add_argument('fact', action='store', help='Fact Name')
     set_fact_parser.add_argument('value', action='store', help='Fact Value')
 
+    # delete-fact command
+    delete_fact_parser = subparsers.add_parser('delete-fact', help='Delete fact for a machine')
+    delete_fact_parser.set_defaults(command_type='delete-fact')
+    delete_fact_parser.add_argument('machine', action='store', help='Machine Name')
+    delete_fact_parser.add_argument('fact', action='store', help='Fact Name')
 
     args = parser.parse_args()
-
-    print(args)
-    print(args.command_type)
 
     # Perform function here
 
