@@ -66,7 +66,7 @@ def main():
 
     config_file = '/etc/puppetconfig.yml'
     with open(config_file, "r") as configyml:
-        cfg = yaml.load(configyml)
+        cfg = yaml.safe_load(configyml)
 
     sa_account_name = cfg['puppetconfig']['sa_account_name']
     table_name = cfg['puppetconfig']['table_name']
