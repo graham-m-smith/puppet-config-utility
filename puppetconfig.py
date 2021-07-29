@@ -12,7 +12,6 @@ def main():
     # Parse command line options
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--config_file',dest='config_file', default='/etc/puppetconfig.yml')
     subparsers = parser.add_subparsers(help='commands')
 
     # list-machines command
@@ -41,7 +40,7 @@ def main():
 
     # Load settings from config file
 
-    #config_file = '/etc/puppetconfig.yml'
+    config_file = '/etc/puppetconfig.yml'
     if not os.path.exists(config_file):
         print("Config file", config_file, "does not exist")
         sys.exit(2)
