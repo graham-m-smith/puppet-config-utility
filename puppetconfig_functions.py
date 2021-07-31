@@ -70,7 +70,8 @@ def do_delete_machine(table_client, machine):
 
     try:
         table_client.delete_entity(partition_key='PuppetCfg', row_key=machine)
-    except HttpResponseError:
+    except HttpResponseError as err:
         print("Error deleting", machine)
+        print(err)
         sys.exit(2)
 
