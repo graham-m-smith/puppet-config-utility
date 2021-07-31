@@ -1,5 +1,5 @@
 import sys
-from azure.core.exceptions import EntityAlreadyExists
+#from azure.core.exceptions import EntityAlreadyExists
 
 # Function to list the machines in the Azure table
 def do_list(table_service, table_name):
@@ -53,7 +53,7 @@ def do_add_machine(table_service, table_name, machine):
 
     try:
         result = table_service.insert_entity(table_name, record)
-    except EntityAlreadyExists as err:
+    except Exception as err:
         print("Machine", machine, "already exists")
         sys.exit(1)
 
