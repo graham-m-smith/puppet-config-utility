@@ -4,7 +4,6 @@ import os
 import sys
 import argparse
 import yaml
-#from azure.cosmosdb.table.tableservice import TableService
 from azure.data.tables import TableServiceClient
 from azure.core.credentials import AzureSasCredential
 from puppetconfig_functions import *
@@ -61,7 +60,6 @@ def main():
 
     # Initialise Variables
 
-    sa_account_name = cfg['puppetconfig']['sa_account_name']
     table_name = cfg['puppetconfig']['table_name']
     sas_token = cfg['puppetconfig']['sas_token']
     endpoint = cfg['puppetconfig']['endpoint']
@@ -86,7 +84,6 @@ def main():
     elif args.command_type == 'add-machine':
         do_add_machine(table_client, args.machine)
     
-    #do_add_machine
     #do_delete_machine
     #do_generate_yaml
 

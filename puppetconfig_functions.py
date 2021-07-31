@@ -1,5 +1,4 @@
 import sys
-#from azure.core.exceptions import EntityAlreadyExists
 from azure.data.tables import UpdateMode
 from azure.core.exceptions import ResourceExistsError
 
