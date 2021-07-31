@@ -66,7 +66,7 @@ def do_delete_machine(table_client, machine):
         data = table_client.get_entity('PuppetCfg', machine)
     except HttpResponseError as err:
         print("Machine", machine, "does not exist")
-        print(err)
+        print(err.ErrorCode)
         sys.exit(1)
 
     try:
