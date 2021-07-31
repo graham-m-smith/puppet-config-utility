@@ -32,7 +32,7 @@ def do_set_fact(table_client, machine, fact, value):
     record = table_client.get_entity('PuppetCfg', machine)
     record[fact] = value
     print(record)
-    table_client.update_entity(mode=UpdateMode.UPDATE, entity=record)
+    table_client.update_entity(mode=UpdateMode.REPLACE, entity=record)
 
 # Function to delete a fact for a machine
 def do_delete_fact(table_client, machine, fact):
@@ -41,7 +41,7 @@ def do_delete_fact(table_client, machine, fact):
     record = table_client.get_entity('PuppetCfg', machine)
     del record[fact]
     print(record)
-    table_client.update_entity(mode=UpdateMode.UPDATE, entity=record)
+    table_client.update_entity(mode=UpdateMode.REPLACE, entity=record)
 
 # Function to add a new machine
 def do_add_machine(table_service, table_name, machine):
