@@ -1,6 +1,6 @@
 import sys
 from azure.data.tables import UpdateMode
-from azure.core.exceptions import ResourceExistsError
+from azure.core.exceptions import ResourceExistsError, HttpResponseError
 
 # Function to list the machines in the Azure table
 def do_list(table_client):
@@ -58,3 +58,19 @@ def do_add_machine(table_client, machine):
         sys.exit(1)
 
     print("Machine", machine, "added to configuration")
+
+# Function to delete a machine
+def do_delete_machine(table_client, machine):
+
+    try:
+        data = table_client.get_entity('PuppetCfg', machine)
+    except HttpResponseError:
+        print("Machine", machine, "does not exist")
+        sys.exit(1)
+
+    try:
+        table_client.delete_entity(partition_key='PuppetCfg', row_key=machine)
+    except HttpResponseError:
+        print("Error deleting", machine)
+        sys.exit(2)
+

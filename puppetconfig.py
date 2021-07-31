@@ -83,6 +83,9 @@ def main():
 
     elif args.command_type == 'add-machine':
         do_add_machine(table_client, args.machine)
+
+    elif args.command_type == 'delete-machine':
+        do_delete_machine(table_client, args.machine)
     
     #do_delete_machine
     #do_generate_yaml
