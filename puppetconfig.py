@@ -83,7 +83,7 @@ def main():
     elif args.command_type == 'delete-fact':
         do_delete_fact(table_service, table_name, args.machine, args.fact)
 
-    elif args.command_tyoe == 'add-machine':
+    elif args.command_type == 'add-machine':
         do_add_machine(table_service, table_name, args.machine)
     
     #do_add_machine
