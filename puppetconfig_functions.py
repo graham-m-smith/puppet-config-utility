@@ -52,7 +52,7 @@ def do_add_machine(table_service, table_name, machine):
 
     try:
         result = table_service.insert_entity(table_name, record)
-    except:
+    except table_service.EntityAlreadyExists:
         print("Machine", machine, "already exists")
         sys.exit(1)
 
