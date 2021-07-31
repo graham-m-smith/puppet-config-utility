@@ -1,6 +1,6 @@
 import sys
 #from azure.core.exceptions import EntityAlreadyExists
-import azure.data.tables
+from azure.data.tables import UpdateMode
 
 # Function to list the machines in the Azure table
 def do_list(table_client):
