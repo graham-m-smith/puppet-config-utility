@@ -29,10 +29,24 @@ def do_show_machine(table_client, machine):
 def do_set_fact(table_client, machine, fact, value):
 
     # Get existing data for this machine
-    record = table_client.get_entity('PuppetCfg', machine)
+    try:
+        record = table_client.get_entity('PuppetCfg', machine)
+    except HttpResponseError:
+        print("Machine", machine, "does not exist")
+        sys.exit(1)
+
+    # Add the fact to the record
     record[fact] = value
-    print(record)
-    table_client.update_entity(mode=UpdateMode.REPLACE, entity=record)
+
+    # Update the table
+    try:
+        table_client.update_entity(mode=UpdateMode.REPLACE, entity=record)
+    except HttpResponseError as err:
+        print("Error updating record for", machine)
+        print(err)
+        sys.exit(2)
+
+    print("Added fact", fact, "value", value, "to machine", machine)
 
 # Function to delete a fact for a machine
 def do_delete_fact(table_client, machine, fact):
