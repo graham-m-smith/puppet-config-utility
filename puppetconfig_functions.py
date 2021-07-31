@@ -1,6 +1,7 @@
 import sys
 #from azure.core.exceptions import EntityAlreadyExists
 from azure.data.tables import UpdateMode
+from azure.core.exceptions import ResourceExistsError
 
 # Function to list the machines in the Azure table
 def do_list(table_client):
@@ -44,17 +45,16 @@ def do_delete_fact(table_client, machine, fact):
     table_client.update_entity(mode=UpdateMode.REPLACE, entity=record)
 
 # Function to add a new machine
-def do_add_machine(table_service, table_name, machine):
+def do_add_machine(table_client, machine):
 
     # Create new entity
-
     record = {}
     record['PartitionKey'] = 'PuppetCfg'
     record['RowKey'] = machine
 
     try:
-        result = table_service.insert_entity(table_name, record)
-    except:
+        response = table_client.insert_entity(entity=record)
+    except ResourceExistsError:
         print("Machine", machine, "already exists")
         sys.exit(1)
 
