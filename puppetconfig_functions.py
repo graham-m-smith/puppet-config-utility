@@ -51,7 +51,7 @@ def do_add_machine(table_service, table_name, machine):
     record['RowKey'] = machine
 
     try:
-        table_service.insert_entity(table_name, record)
+        result = table_service.insert_entity(table_name, record)
     except:
         print("Machine", machine, "already exists")
         sys.exit(1)
