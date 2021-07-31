@@ -2,10 +2,12 @@ import sys
 #from azure.core.exceptions import EntityAlreadyExists
 
 # Function to list the machines in the Azure table
-def do_list(table_service, table_name):
+#def do_list(table_service, table_name):
+def do_list(table_client):
 
     # Get data from Azure Table
-    data = table_service.query_entities(table_name, "PartitionKey eq 'PuppetCfg'")
+    #data = table_service.query_entities(table_name, "PartitionKey eq 'PuppetCfg'")
+    data = table_client.query_entities("PartitionKey eq 'PuppetCfg'")
 
     for record in data:
         machine = record['RowKey']
