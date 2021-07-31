@@ -1,3 +1,5 @@
+import sys
+
 # Function to list the machines in the Azure table
 def do_list(table_service, table_name):
 
@@ -38,3 +40,20 @@ def do_delete_fact(table_service, table_name, machine, fact):
     del record[fact]
     print(record)
     table_service.insert_or_replace_entity(table_name, record)
+
+# Function to add a new machine
+def do_add_machine(table_service, table_name, machine):
+
+    # Create new entity
+
+    record = {}
+    record['PartitionKey'] = 'PuppetCfg'
+    record['RowKey'] = machine
+
+    try:
+        table_service.insert_entity(table_name, record)
+    except:
+        print("Machine", machine, "already exists")
+        sys.exit(1)
+
+    print("Machine", machine, "added to configuration")

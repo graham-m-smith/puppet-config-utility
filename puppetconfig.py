@@ -36,6 +36,15 @@ def main():
     delete_fact_parser.add_argument('machine', action='store', help='Machine Name')
     delete_fact_parser.add_argument('fact', action='store', help='Fact Name')
 
+    add_machine_parser = subparsers.add_parser('add-machine', help='Add a new machine')
+    add_machine_parser.set_defaults(command_type='add-machine')
+    add_machine_parser.add_argument('machine', action='store', help='Machine Name')
+
+    delete_machine_parser = subparsers.add_parser('delete-machine', help='Delete a machine')
+    delete_machine_parser.set_defaults(command_type='delete-machine')
+    delete_machine_parser.add_argument('machine', action='store', help='Machine Name')
+
+    # Parse arguments
     args = parser.parse_args()
 
     # Load settings from config file
@@ -73,6 +82,9 @@ def main():
 
     elif args.command_type == 'delete-fact':
         do_delete_fact(table_service, table_name, args.machine, args.fact)
+
+    elif args.command_tyoe == 'add-machine':
+        do_add_machine(table_service, table_name, args.machine)
     
     #do_add_machine
     #do_delete_machine
