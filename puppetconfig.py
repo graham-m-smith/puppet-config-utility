@@ -78,7 +78,7 @@ def main():
         do_show_machine(table_client, args.machine)
 
     elif args.command_type == 'set-fact':
-        do_set_fact(table_service, table_name, args.machine, args.fact, args.value)
+        do_set_fact(table_client, args.machine, args.fact, args.value)
 
     elif args.command_type == 'delete-fact':
         do_delete_fact(table_service, table_name, args.machine, args.fact)

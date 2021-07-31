@@ -1,5 +1,6 @@
 import sys
 #from azure.core.exceptions import EntityAlreadyExists
+import azure.data.tables.UpdateMode
 
 # Function to list the machines in the Azure table
 def do_list(table_client):
@@ -25,13 +26,13 @@ def do_show_machine(table_client, machine):
         print(key,':',value)
 
 # Function to add/set a fact for a machine
-def do_set_fact(table_service, table_name, machine, fact, value):
+def do_set_fact(table_client, machine, fact, value):
 
     # Get existing data for this machine
-    record = table_service.get_entity(table_name, 'PuppetCfg', machine)
+    record = table_client.get_entity('PuppetCfg', machine)
     record[fact] = value
     print(record)
-    table_service.insert_or_replace_entity(table_name, record)
+    table_client.update_entity(mode=UpdateMode.MERGE, entity=record)
 
 # Function to delete a fact for a machine
 def do_delete_fact(table_service, table_name, machine, fact):
