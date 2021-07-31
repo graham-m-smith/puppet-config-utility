@@ -6,6 +6,7 @@ import argparse
 import yaml
 #from azure.cosmosdb.table.tableservice import TableService
 from azure.data.tables import TableServiceClient
+from azure.core.credentials import AzureSasCredential
 from puppetconfig_functions import *
 
 def main():
@@ -63,11 +64,13 @@ def main():
     sa_account_name = cfg['puppetconfig']['sa_account_name']
     table_name = cfg['puppetconfig']['table_name']
     sas_token = cfg['puppetconfig']['sas_token']
+    endpoint = cfg['puppetconfig']['endpoint']
 
     try:
-        table_service = TableService(account_name=sa_account_name, sas_token=sas_token, socket_timeout=60)
+        #table_service = TableService(account_name=sa_account_name, sas_token=sas_token, socket_timeout=60)
+        table_service = TableServiceClient(endpoint=endpoint, credential=AzureSasCredential(sas_token))
     except:
-        print("Error creating TableService object")
+        print("Error creating TableServiceClient object")
         sys.exit(2)
 
     # Perform function here
