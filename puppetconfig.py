@@ -66,23 +66,16 @@ def main():
     sas_token = cfg['puppetconfig']['sas_token']
     endpoint = cfg['puppetconfig']['endpoint']
 
-    try:
-        #table_service = TableService(account_name=sa_account_name, sas_token=sas_token, socket_timeout=60)
-        table_service_client = TableServiceClient(endpoint=endpoint, credential=AzureSasCredential(sas_token))
-    except:
-        print("Error creating TableServiceClient object")
-        sys.exit(2)
-
+    table_service_client = TableServiceClient(endpoint=endpoint, credential=AzureSasCredential(sas_token))
     table_client = table_service_client.get_table_client(table_name=table_name)
 
     # Perform function here
 
     if args.command_type == 'list-machines':
-        #do_list(table_service, table_name)
         do_list(table_client)
 
     elif args.command_type == 'show-machine':
-        do_show_machine(table_service, table_name, args.machine)
+        do_show_machine(table_client, args.machine)
 
     elif args.command_type == 'set-fact':
         do_set_fact(table_service, table_name, args.machine, args.fact, args.value)

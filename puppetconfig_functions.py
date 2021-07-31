@@ -2,11 +2,9 @@ import sys
 #from azure.core.exceptions import EntityAlreadyExists
 
 # Function to list the machines in the Azure table
-#def do_list(table_service, table_name):
 def do_list(table_client):
 
     # Get data from Azure Table
-    #data = table_service.query_entities(table_name, "PartitionKey eq 'PuppetCfg'")
     data = table_client.query_entities("PartitionKey eq 'PuppetCfg'")
 
     for record in data:
@@ -14,10 +12,10 @@ def do_list(table_client):
         print(machine)
 
 # Function to list the facts for a specific machine
-def do_show_machine(table_service, table_name, machine):
+def do_show_machine(table_client, machine):
 
     # Get data for this machine from Azure Table
-    record = table_service.get_entity(table_name, 'PuppetCfg', machine)
+    record = table_client.get_entity('PuppetCfg', machine)
     print("Facts for machine", machine)
     for key in record.keys():
         if key == 'PartitionKey' or key == 'Timestamp' or key == 'etag':
