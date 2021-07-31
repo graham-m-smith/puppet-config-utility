@@ -1,5 +1,4 @@
 import sys
-from typing import Any
 #from azure.core.exceptions import EntityAlreadyExists
 
 # Function to list the machines in the Azure table

@@ -4,7 +4,8 @@ import os
 import sys
 import argparse
 import yaml
-from azure.cosmosdb.table.tableservice import TableService
+#from azure.cosmosdb.table.tableservice import TableService
+from azure.data.tables import TableService
 from puppetconfig_functions import *
 
 def main():
