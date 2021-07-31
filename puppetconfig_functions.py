@@ -53,7 +53,7 @@ def do_add_machine(table_client, machine):
     record['RowKey'] = machine
 
     try:
-        response = table_client.insert_entity(entity=record)
+        response = table_client.create_entity(entity=record)
     except ResourceExistsError:
         print("Machine", machine, "already exists")
         sys.exit(1)
