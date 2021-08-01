@@ -1,6 +1,22 @@
 import sys
+import os
+import yaml
 from azure.data.tables import UpdateMode
 from azure.core.exceptions import ResourceExistsError, HttpResponseError
+
+# -----------------------------------------------------------------------------
+# Function to load configuration from yanl file
+# -----------------------------------------------------------------------------
+def get_config(config_file):
+    if not os.path.exists(config_file):
+        print("Config file", config_file, "does not exist")
+        sys.exit(2)
+        
+    with open(config_file, "r") as configyml:
+        cfg = yaml.safe_load(configyml)
+
+    return cfg
+
 
 # -----------------------------------------------------------------------------
 # Function to list the machines in the Azure table
