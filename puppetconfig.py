@@ -1,5 +1,12 @@
 #!/bin/python3
 
+# To Do:
+# move config file to function
+# lock file for generate
+# proxy setting?
+# logging
+# debugging
+
 import os
 import sys
 import argparse
@@ -14,7 +21,7 @@ def main():
     # Parse command line options
 
     parser = argparse.ArgumentParser()
-    subparsers = parser.add_subparsers(help='commands')
+    subparsers = parser.add_subparsers(help='Available Commands - puppetconfig <command> -h for more detail')
 
     # list-machines command
     list_machines_parser = subparsers.add_parser('list-machines', help='List Machines')
