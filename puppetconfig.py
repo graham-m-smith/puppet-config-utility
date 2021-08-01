@@ -59,6 +59,8 @@ def main():
     generate_parser = subparsers.add_parser('generate', help='generate facts.yaml file')
     generate_parser.set_defaults(command_type='generate')
 
+    parser.add_argument('--debug', action='store_true', dest='debug')
+
     # Parse arguments
     args = parser.parse_args()
 
