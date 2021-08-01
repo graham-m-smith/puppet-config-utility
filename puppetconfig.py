@@ -1,7 +1,6 @@
 #!/bin/python3
 
 # To Do:
-# move config file to function
 # lock file for generate
 # proxy setting?
 # logging
@@ -10,7 +9,6 @@
 import os
 import sys
 import argparse
-import yaml
 from azure.data.tables import TableServiceClient
 from azure.core.credentials import AzureSasCredential
 from puppetconfig_functions import *
@@ -69,15 +67,10 @@ def main():
     args = parser.parse_args()
 
     # Load settings from config file
-    #if not os.path.exists(args.config_file):
-    #    print("Config file", args.config_file, "does not exist")
-    #    sys.exit(2)
-
-    #with open(args.config_file, "r") as configyml:
-    #    cfg = yaml.safe_load(configyml)
-
     cfg = get_config(args.config_file)
-    
+
+    # Set proxy if required
+
     # Initialise Variables
 
     table_name = cfg['puppetconfig']['table_name']
