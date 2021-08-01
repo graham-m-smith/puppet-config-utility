@@ -75,7 +75,7 @@ def main():
         print("Config file", args.config_file, "does not exist")
         sys.exit(2)
 
-    with open(config_file, "r") as configyml:
+    with open(args.config_file, "r") as configyml:
         cfg = yaml.safe_load(configyml)
 
     # Initialise Variables
