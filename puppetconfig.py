@@ -23,8 +23,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--debug', action='store_true', dest='debug+flag')
     parser.add_argument('--verbose', action='store_true', dest='verbose_flag')
-    parser.add_argument('--config-file', action='store', dest='config_file', default='/etc/puppetconfig.yml')
-
+    parser.add_argument('--config-file', action='store', dest='config_file')
+    parser.set_defaults(config_file='/etc/puppetconfig.yml')
 
 
     subparsers = parser.add_subparsers(help='Available Commands - puppetconfig <command> -h for more detail')
