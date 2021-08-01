@@ -19,11 +19,10 @@ def main():
     # Parse command line options
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--debug', action='store_true', dest='debug+flag')
+    parser.add_argument('--debug', action='store_true', dest='debug_flag')
     parser.add_argument('--verbose', action='store_true', dest='verbose_flag')
     parser.add_argument('--config-file', action='store', dest='config_file')
     parser.set_defaults(config_file='/etc/puppetconfig.yml')
-
 
     subparsers = parser.add_subparsers(help='Available Commands - puppetconfig <command> -h for more detail')
 
@@ -70,6 +69,7 @@ def main():
     cfg = get_config(args.config_file)
 
     # Set proxy if required
+    # os.environ['https_proxy] = cfg['puppetconfig']['proxy']
 
     # Initialise Variables
 
