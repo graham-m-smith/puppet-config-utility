@@ -130,3 +130,4 @@ def do_delete_machine(table_client, machine):
         print(err)
         sys.exit(2)
 
+    print("Machine", machine, "deleted")
