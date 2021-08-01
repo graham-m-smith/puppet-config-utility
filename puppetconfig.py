@@ -21,6 +21,8 @@ def main():
     # Parse command line options
 
     parser = argparse.ArgumentParser()
+    parser.add_argument('--debug', action='store_true', dest='debug')
+
     subparsers = parser.add_subparsers(help='Available Commands - puppetconfig <command> -h for more detail')
 
     # list-machines command
@@ -58,8 +60,6 @@ def main():
     # generate command
     generate_parser = subparsers.add_parser('generate', help='generate facts.yaml file')
     generate_parser.set_defaults(command_type='generate')
-
-    parser.add_argument('--debug', action='store_true', dest='debug')
 
     # Parse arguments
     args = parser.parse_args()
