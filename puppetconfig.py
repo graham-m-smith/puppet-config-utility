@@ -71,8 +71,8 @@ def main():
     # Load settings from config file
 
     #config_file = '/etc/puppetconfig.yml'
-    if not os.path.exists(config_file):
-        print("Config file", config_file, "does not exist")
+    if not os.path.exists(args.config_file):
+        print("Config file", args.config_file, "does not exist")
         sys.exit(2)
 
     with open(config_file, "r") as configyml:
