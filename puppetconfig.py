@@ -6,10 +6,12 @@
 # debugging
 # validated list of facts & values - quality check = store in same table, different partition
 # additional commands
-#   add-valid-fact
-#   delete-valid-fact
-#   add-valid-fact-value
-#   delete-valid-fact-value
+#   add-valid-fact <fact>
+#   delete-valid-fact <fact>
+#   list-valid-fact
+#   add-valid-fact-value <fact> <value>
+#   delete-valid-fact-value <fact> <value>
+#   list-valid-fact-value <fact>
 # check machine facts against valid fact list
 # check machine fact value against valid fact value list
 
