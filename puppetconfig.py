@@ -2,9 +2,16 @@
 
 # To Do:
 # lock file for generate
-# proxy setting?
 # logging
 # debugging
+# validated list of facts & values - quality check = store in same table, different partition
+# additional commands
+#   add-valid-fact
+#   delete-valid-fact
+#   add-valid-fact-value
+#   delete-valid-fact-value
+# check machine facts against valid fact list
+# check machine fact value against valid fact value list
 
 import os
 import sys
