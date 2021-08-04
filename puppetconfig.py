@@ -69,7 +69,9 @@ def main():
     cfg = get_config(args.config_file)
 
     # Set proxy if required
-    # os.environ['https_proxy] = cfg['puppetconfig']['proxy']
+    proxy = cfg['puppetconfig']['proxy']
+    if proxy != 'none':
+        os.environ['https_proxy] = cfg['puppetconfig']['proxy']
 
     # Initialise Variables
 
