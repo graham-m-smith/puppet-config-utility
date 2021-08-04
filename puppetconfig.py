@@ -71,7 +71,7 @@ def main():
     # Set proxy if required
     proxy = cfg['puppetconfig']['proxy']
     if proxy != 'none':
-        os.environ['https_proxy] = cfg['puppetconfig']['proxy']
+        os.environ['https_proxy'] = proxy
 
     # Initialise Variables
 
