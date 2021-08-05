@@ -37,6 +37,7 @@ import sys
 import argparse
 from puppetconfig_functions import *
 from puppetconfig_generate import *
+from puppetconfig_constants import DEFAULT_CONFIG_FILE
 
 # External Modules
 
@@ -64,7 +65,7 @@ def main():
     parser.add_argument('--debug', action='store_true', dest='debug_flag')
     parser.add_argument('--verbose', action='store_true', dest='verbose_flag')
     parser.add_argument('--config-file', action='store', dest='config_file')
-    parser.set_defaults(config_file='/etc/puppetconfig.yml')
+    parser.set_defaults(config_file=DEFAULT_CONFIG_FILE)
 
     subparsers = parser.add_subparsers(help='Available Commands - puppetconfig <command> -h for more detail')
 

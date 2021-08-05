@@ -8,3 +8,6 @@ PUPPETVF_PK = 'PuppetCfgValidFact'
 
 # Partition Key Valud for Valid Fact Value Records in Azure Table
 PUPPETVFV_PK = 'PuppetCfgValidFactValue'
+
+# Default configuration file name
+DEFAULT_CONFIG_FILE = '/etc/puppetconfig.yml'
