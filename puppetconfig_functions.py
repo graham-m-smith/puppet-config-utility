@@ -3,6 +3,7 @@ import os
 import yaml
 from azure.data.tables import UpdateMode
 from azure.core.exceptions import ResourceExistsError, HttpResponseError
+from puppetconfig_constants import PUPPETCFG_PK
 
 # -----------------------------------------------------------------------------
 # Function to load configuration from yanl file
@@ -23,8 +24,10 @@ def get_config(config_file):
 def do_list(table_client):
 
     # Get data from Azure Table
+    query = f"PartitionKey eq '{PUPPETCFG_PK}'"
+    
     try:
-        data = table_client.query_entities("PartitionKey eq 'PuppetCfg'")
+        data = table_client.query_entities(query)
     except HttpResponseError as err:
         print("Error getting list of machines")
         print(err)
@@ -41,7 +44,7 @@ def do_show_machine(table_client, machine):
 
     # Get data for this machine from Azure Table
     try:
-        record = table_client.get_entity('PuppetCfg', machine)
+        record = table_client.get_entity(PUPPETCFG_PK, machine)
     except HttpResponseError as err:
         print("Machine", machine, "does not exist")
         sys.exit(1)
@@ -61,7 +64,7 @@ def do_set_fact(table_client, machine, fact, value):
 
     # Get existing data for this machine
     try:
-        record = table_client.get_entity('PuppetCfg', machine)
+        record = table_client.get_entity(PUPPETCFG_PK, machine)
     except HttpResponseError:
         print("Machine", machine, "does not exist")
         sys.exit(1)
@@ -86,7 +89,7 @@ def do_delete_fact(table_client, machine, fact):
 
     # Get existing data for this machine
     try:
-        record = table_client.get_entity('PuppetCfg', machine)
+        record = table_client.get_entity(PUPPETCFG_PK, machine)
     except HttpResponseError:
         print("Machine", machine, "does not exist")
         sys.exit(1)
@@ -116,7 +119,7 @@ def do_add_machine(table_client, machine):
 
     # Create new entity
     record = {}
-    record['PartitionKey'] = 'PuppetCfg'
+    record['PartitionKey'] = PUPPETCFG_PK
     record['RowKey'] = machine
 
     try:
@@ -133,13 +136,13 @@ def do_add_machine(table_client, machine):
 def do_delete_machine(table_client, machine):
 
     try:
-        data = table_client.get_entity('PuppetCfg', machine)
+        data = table_client.get_entity(PUPPETCFG_PK, machine)
     except HttpResponseError as err:
         print("Machine", machine, "does not exist")
         sys.exit(1)
 
     try:
-        table_client.delete_entity(partition_key='PuppetCfg', row_key=machine)
+        table_client.delete_entity(partition_key=PUPPETCFG_PK, row_key=machine)
     except HttpResponseError as err:
         print("Error deleting", machine)
         print(err)

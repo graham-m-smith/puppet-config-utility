@@ -8,6 +8,7 @@ import sys
 from azure.core.exceptions import HttpResponseError
 from shutil import copyfile
 import datetime
+from puppetconfig_constants import PUPPETCFG_PK
 
 # -----------------------------------------------------------------------------
 # Function to generate facts.yaml file
@@ -36,8 +37,10 @@ def do_generate(table_client):
         chown(puppet_facts_dir, puppet_uid, puppet_gid)
 
     # Get data from Azure Table
+    query = f"PartitionKey eq '{PUPPETCFG_PK}'"
+
     try:
-        data = table_client.query_entities("PartitionKey eq 'PuppetCfg'")
+        data = table_client.query_entities(query)
     except HttpResponseError as err:
         print("Error getting list of machines")
         print(err)
