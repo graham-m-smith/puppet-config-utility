@@ -27,7 +27,7 @@ def main():
 
     # Parse command line options
 
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='Utility to manage puppet configuration')
     parser.add_argument('--debug', action='store_true', dest='debug_flag')
     parser.add_argument('--verbose', action='store_true', dest='verbose_flag')
     parser.add_argument('--config-file', action='store', dest='config_file')
@@ -74,7 +74,7 @@ def main():
     # Parse arguments
     args = parser.parse_args()
     if 'command_type' not in args:
-        print("No command soecified")
+        print("No command specified")
         parser.print_help()
         sys.exit(2)
 
