@@ -27,7 +27,7 @@ def main():
 
     # Parse command line options
 
-    parser = argparse.ArgumentParser(description='Utility to manage puppet configuration')
+    parser = argparse.ArgumentParser(description='Utility to manage puppet fact configuration')
     parser.add_argument('--debug', action='store_true', dest='debug_flag')
     parser.add_argument('--verbose', action='store_true', dest='verbose_flag')
     parser.add_argument('--config-file', action='store', dest='config_file')
