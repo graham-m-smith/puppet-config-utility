@@ -8,7 +8,6 @@ import sys
 import datetime
 from os import chown, mkdir, path
 from shutil import copyfile
-from puppetconfig_functions import get_config
 from time import strftime
 from puppetconfig_constants import PUPPETCFG_PK
 from puppetconfig_functions import get_config
