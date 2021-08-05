@@ -8,7 +8,7 @@ from puppetconfig_constants import PUPPETCFG_PK
 from prettytable import PrettyTable
 
 # -----------------------------------------------------------------------------
-# Function to load configuration from yanl file
+# Function to load configuration from yaml file
 # -----------------------------------------------------------------------------
 def get_config(config_file):
     if not os.path.exists(config_file):
