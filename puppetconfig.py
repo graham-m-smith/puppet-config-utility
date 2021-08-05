@@ -17,6 +17,8 @@
 # debugging
 # validated list of facts & values - quality check = store in same table, different partition
 # additional commands
+#   list-machines-with-fact <fact> --show-value
+#   list-machines --table --columns=3
 #   add-valid-fact <fact>
 #   delete-valid-fact <fact>
 #   list-valid-fact
