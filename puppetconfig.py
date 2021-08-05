@@ -120,6 +120,7 @@ def main():
     
     else:
         print("Invalid command")
+        parser.print_help()
         sys.exit(1)
     
     # Done
