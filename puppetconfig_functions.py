@@ -44,6 +44,9 @@ def do_list(table_client):
 # -----------------------------------------------------------------------------
 def do_show_machine(table_client, machine):
 
+    # Initialise Variables
+    excluded_keys = ['PartitionKey', 'Timestanp', 'etag', 'RowKey']
+
     # Get data for this machine from Azure Table
     try:
         record = table_client.get_entity(PUPPETCFG_PK, machine)
@@ -61,7 +64,8 @@ def do_show_machine(table_client, machine):
     table.set_style(prettytable.DEFAULT)
 
     for key in record.keys():
-        if key == 'PartitionKey' or key == 'Timestamp' or key == 'etag'or key == 'RowKey':
+        #if key == 'PartitionKey' or key == 'Timestamp' or key == 'etag'or key == 'RowKey':
+        if key in excluded_keys:
             continue
 
         value = record[key]
