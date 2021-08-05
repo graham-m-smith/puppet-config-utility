@@ -64,7 +64,7 @@ def do_show_machine(table_client, machine):
     table.set_style(prettytable.DEFAULT)
 
     for key in record.keys():
-        #if key == 'PartitionKey' or key == 'Timestamp' or key == 'etag'or key == 'RowKey':
+        # Ignore non-fact related data
         if key in excluded_keys:
             continue
 
