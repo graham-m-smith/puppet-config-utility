@@ -57,7 +57,7 @@ def do_show_machine(table_client, machine):
     table = PrettyTable()
     table.field_names = ['Fact', 'Value']
     table.align = 'l'
-    table.set_style(prettytable.MARKDOWN)
+    table.set_style(prettytable.MSWORD_FRIENDLY)
 
     for key in record.keys():
         if key == 'PartitionKey' or key == 'Timestamp' or key == 'etag'or key == 'RowKey':
