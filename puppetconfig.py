@@ -78,9 +78,9 @@ def main():
     cfg = get_config(args.config_file)
 
     # Set proxy if required
-    proxy = cfg['general']['proxy']
+    proxy = cfg['azure']['proxy']
     if proxy != 'none':
-        os.environ['azure'] = proxy
+        os.environ['https_proxy'] = proxy
 
     # Initialise Variables
 
