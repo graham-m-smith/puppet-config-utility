@@ -1,11 +1,36 @@
+# -----------------------------------------------------------------------------
+# Import Modules
+# -----------------------------------------------------------------------------
 import sys
 import os
-import prettytable
-import yaml
-from azure.data.tables import UpdateMode
-from azure.core.exceptions import ResourceExistsError, HttpResponseError
 from puppetconfig_constants import PUPPETCFG_PK
-from prettytable import PrettyTable
+
+# External Modules
+
+try:
+    import yaml
+except ModuleNotFoundError:
+    print("Module PyYAML not instaled [pip3 install PyYAML]")
+    sys.exit(2)
+
+try:
+    from azure.data.tables import UpdateMode
+except ModuleNotFoundError:
+    print("Module azure.data.tables not instaled [pip3 install azure.data.tables]")
+    sys.exit(2)
+
+try:
+    from azure.core.exceptions import ResourceExistsError, HttpResponseError
+except:
+    print("Module azure.core not instaled [pip3 install azure.core]")
+    sys.exit(2)
+
+try:
+    from prettytable import PrettyTable
+except ModuleNotFoundError:
+    print("Module prettytable not instaled [pip3 install prettytable]")
+    sys.exit(2)
+
 
 # -----------------------------------------------------------------------------
 # Function to load configuration from yaml file

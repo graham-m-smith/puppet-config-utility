@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/env python3
 
 # -----------------------------------------------------------------------------
 # Required Pip Modules
@@ -29,20 +29,33 @@
 # check machine fact value against valid fact value list
 # -----------------------------------------------------------------------------
 
+# -----------------------------------------------------------------------------
+# Import Modules
+# -----------------------------------------------------------------------------
 import os
 import sys
 import argparse
+from puppetconfig_functions import *
+from puppetconfig_generate import *
+
+# External Modules
 
 try:
     from azure.data.tables import TableServiceClient
 except ModuleNotFoundError:
-    print("Module azure.data.tables not instaled")
+    print("Module azure.data.tables not instaled [pip3 install azure.data.tables]")
     sys.exit(2)
 
-from azure.core.credentials import AzureSasCredential
-from puppetconfig_functions import *
-from puppetconfig_generate import *
+try:
+    from azure.core.credentials import AzureSasCredential
+except ModuleNotFoundError:
+    print("Module azure.core not instaled [pip3 install azure.core]")
+    sys.exit(2)
 
+
+# -----------------------------------------------------------------------------
+# Main Function
+# -----------------------------------------------------------------------------
 def main():
 
     # Parse command line options

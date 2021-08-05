@@ -1,16 +1,31 @@
-from puppetconfig_functions import get_config
-from time import strftime
-import yaml
+# -----------------------------------------------------------------------------
+# Import Modules
+# -----------------------------------------------------------------------------
 import io
-from os import chown, mkdir, path
 import pwd
 import grp
 import sys
-from azure.core.exceptions import HttpResponseError
-from shutil import copyfile
 import datetime
+from os import chown, mkdir, path
+from shutil import copyfile
+from puppetconfig_functions import get_config
+from time import strftime
 from puppetconfig_constants import PUPPETCFG_PK
 from puppetconfig_functions import get_config
+
+# External Modules
+
+try:
+    import yaml
+except ModuleNotFoundError:
+    print("Module PyYAML not instaled [pip3 install PyYAML]")
+    sys.exit(2)
+
+try:
+    from azure.core.exceptions import HttpResponseError
+except:
+    print("Module azure.core not instaled [pip3 install azure.core]")
+    sys.exit(2)
 
 # -----------------------------------------------------------------------------
 # Function to generate facts.yaml file
