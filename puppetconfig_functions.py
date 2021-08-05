@@ -4,6 +4,7 @@ import yaml
 from azure.data.tables import UpdateMode
 from azure.core.exceptions import ResourceExistsError, HttpResponseError
 from puppetconfig_constants import PUPPETCFG_PK
+from prettytable import PrettyTable
 
 # -----------------------------------------------------------------------------
 # Function to load configuration from yanl file
@@ -25,7 +26,7 @@ def do_list(table_client):
 
     # Get data from Azure Table
     query = f"PartitionKey eq '{PUPPETCFG_PK}'"
-    
+
     try:
         data = table_client.query_entities(query)
     except HttpResponseError as err:
@@ -50,12 +51,20 @@ def do_show_machine(table_client, machine):
         sys.exit(1)
 
     print("Facts for machine", machine)
+    print("")
+    
+    table = PrettyTable()
+    table.field_names = ['Fact', 'Value']
+
     for key in record.keys():
         if key == 'PartitionKey' or key == 'Timestamp' or key == 'etag'or key == 'RowKey':
             continue
 
         value = record[key]
-        print(key,':',value)
+        table.add_row([key, value])
+        #print(key,':',value)
+
+    print(table)
 
 # -----------------------------------------------------------------------------
 # Function to add/set a fact for a machine
