@@ -74,7 +74,8 @@ def main():
     # Parse arguments
     args = parser.parse_args()
     if 'command_type' not in args:
-        print("No command soecified - puppetconfig -h to see valid commands")
+        print("No command soecified")
+        parser.print_help()
         sys.exit(2)
 
     # Load settings from config file
