@@ -1,3 +1,4 @@
+from puppetconfig_functions import get_config
 from time import strftime
 import yaml
 import io
@@ -9,20 +10,29 @@ from azure.core.exceptions import HttpResponseError
 from shutil import copyfile
 import datetime
 from puppetconfig_constants import PUPPETCFG_PK
+from puppetconfig_functions import get_config
 
 # -----------------------------------------------------------------------------
 # Function to generate facts.yaml file
 # -----------------------------------------------------------------------------
-def do_generate(table_client):
+def do_generate(table_client, config_file):
+
+    # Load settings from configuration file
+    cfg = get_config(config_file)
 
     # Initialize Variables
-    puppet_facts_dir = '/puppet-facts'
-    yaml_file = puppet_facts_dir + '/facts.yaml'
+    puppet_facts_dir = cfg['generate']['facts_dir']
+    yaml_file_name = cfg['generate']['yaml_file']
+    yaml_file = f'{puppet_facts_dir}/{yaml_file_name}'
+
     now = datetime.datetime.now()
     timestamp = now.strftime('%d-%m-%Y-%H-%M-%S')
-    backup_yaml_file = puppet_facts_dir + '/facts.yaml.' + timestamp
-    puppet_uid = pwd.getpwnam('puppet').pw_uid
-    puppet_gid = grp.getgrnam('puppet').gr_gid
+    backup_yaml_file = f'{puppet_facts_dir}/{yaml_file_name}.{timestamp}'
+
+    puppet_user = cfg['generate']['puppet_user']
+    puppet_group = cfg['generate']['puppet_group']
+    puppet_uid = pwd.getpwnam(puppet_user).pw_uid
+    puppet_gid = grp.getgrnam(puppet_group).gr_gid
 
     yamldata = {
         'server::facts': {}

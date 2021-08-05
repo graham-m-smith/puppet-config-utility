@@ -78,15 +78,15 @@ def main():
     cfg = get_config(args.config_file)
 
     # Set proxy if required
-    proxy = cfg['puppetconfig']['proxy']
+    proxy = cfg['general']['proxy']
     if proxy != 'none':
-        os.environ['https_proxy'] = proxy
+        os.environ['azure'] = proxy
 
     # Initialise Variables
 
-    table_name = cfg['puppetconfig']['table_name']
-    sas_token = cfg['puppetconfig']['sas_token']
-    endpoint = cfg['puppetconfig']['endpoint']
+    table_name = cfg['azure']['table_name']
+    sas_token = cfg['azure']['sas_token']
+    endpoint = cfg['azure']['endpoint']
 
     table_service_client = TableServiceClient(endpoint=endpoint, credential=AzureSasCredential(sas_token))
     table_client = table_service_client.get_table_client(table_name=table_name)
@@ -112,7 +112,7 @@ def main():
         do_delete_machine(table_client, args.machine)
 
     elif args.command_type == 'generate':
-        do_generate(table_client)
+        do_generate(table_client, args.config_file)
     
     else:
         print("Invalid command")

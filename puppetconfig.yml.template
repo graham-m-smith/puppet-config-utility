@@ -1,7 +1,12 @@
 ---
-puppetconfig:
-    sa_account_name:
-    table_name:
-    sas_token:
-    endpoint:
-    proxy:
+azure:
+    table_name: <azure-table>
+    sas_token: <SAS token>
+    endpoint: https://<storage-account>.table.core.windows.net
+    proxy: none
+
+generate:
+    facts_dir: /puppet_facts
+    yaml_file: facts.yaml
+    puppet_user: puppet
+    puppet_group: puppet
