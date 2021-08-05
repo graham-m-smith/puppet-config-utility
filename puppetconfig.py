@@ -32,7 +32,13 @@
 import os
 import sys
 import argparse
-from azure.data.tables import TableServiceClient
+
+try:
+    from azure.data.tables import TableServiceClient
+except ModuleNotFoundError:
+    print("Module azure.data.tables not instaled")
+    sys.exit(2)
+
 from azure.core.credentials import AzureSasCredential
 from puppetconfig_functions import *
 from puppetconfig_generate import *
