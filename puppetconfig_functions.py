@@ -51,6 +51,7 @@ def do_show_machine(table_client, machine):
         print("Machine", machine, "does not exist")
         sys.exit(1)
 
+    print("")
     print("Facts for machine", machine)
     print("")
 
@@ -65,7 +66,6 @@ def do_show_machine(table_client, machine):
 
         value = record[key]
         table.add_row([key, value])
-        #print(key,':',value)
 
     print(table)
 
