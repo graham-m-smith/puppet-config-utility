@@ -52,9 +52,10 @@ def do_show_machine(table_client, machine):
 
     print("Facts for machine", machine)
     print("")
-    
+
     table = PrettyTable()
     table.field_names = ['Fact', 'Value']
+    table.align = 'l'
 
     for key in record.keys():
         if key == 'PartitionKey' or key == 'Timestamp' or key == 'etag'or key == 'RowKey':
