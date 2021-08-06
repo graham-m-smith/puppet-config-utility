@@ -232,3 +232,24 @@ def do_list_valid_fact(table_client):
         table.add_row([fact])
 
     print(table)
+
+# -----------------------------------------------------------------------------
+# Functiom to delete valid fact
+# - will need functionality to remove valid fact values if they exist
+# -----------------------------------------------------------------------------
+def do_delete_valid_fact(table_client, fact):
+
+    try:
+        data = table_client.get_entity(PUPPETVF_PK, fact)
+    except HttpResponseError as err:
+        print("Valid Fact", fact, "does not exist")
+        sys.exit(1)
+
+    try:
+        table_client.delete_entity(partition_key=PUPPETVF_PK, row_key=fact)
+    except HttpResponseError as err:
+        print("Error deleting valid fact", fact)
+        print(err)
+        sys.exit(2)
+
+    print("Valid Fact", fact, "deleted")

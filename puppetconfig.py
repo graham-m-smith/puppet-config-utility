@@ -171,6 +171,9 @@ def main():
 
     elif args.command_type == 'list-valid-fact':
         do_list_valid_fact(table_client)
+
+    elif args.command_type == 'delete-valid-fact':
+        do_delete_valid_fact(table_client, args.fact)
     
     else:
         print("Invalid command")
