@@ -3,7 +3,7 @@
 # -----------------------------------------------------------------------------
 import sys
 import os
-from puppetconfig_constants import PUPPETCFG_PK
+from puppetconfig_constants import PUPPETCFG_PK, PUPPETVF_PK
 
 # External Modules
 
@@ -189,3 +189,21 @@ def do_delete_machine(table_client, machine):
         sys.exit(2)
 
     print("Machine", machine, "deleted")
+
+# -----------------------------------------------------------------------------
+# Function to add a valid fact
+# -----------------------------------------------------------------------------
+def do_add_valid_fact(table_client, fact):
+
+    # Create new entity
+    record = {}
+    record['PartitionKey'] = PUPPETVF_PK
+    record['RowKey'] = fact
+
+    try:
+        response = table_client.create_entity(entity=record)
+    except ResourceExistsError:
+        print("Valid Fact", fact, "already exists")
+        sys.exit(1)
+
+    print("Valid Fact", fact, "added to configuration")

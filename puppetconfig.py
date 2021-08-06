@@ -105,6 +105,20 @@ def main():
     generate_parser = subparsers.add_parser('generate', help='generate facts.yaml file')
     generate_parser.set_defaults(command_type='generate')
 
+    # add-valid-fact command
+    avf_parser = subparsers.add_parser('add-valid-fact', help='Add a new valid fact')
+    avf_parser.set_defaults(command_type='add-valid-fact')
+    avf_parser.add_argument('fact', action='store', help='Fact Name')
+
+    # list-valid-fact command
+    lvf_parser = subparsers.add_parser('list-valid-fact', help='List valid facts')
+    lvf_parser.set_defaults(command_type='list-valid-fact')
+
+    # delete-valid-fact command
+    dvf_parser = subparsers.add_parser('delete-valid-fact', help='Delete a valid fact')
+    dvf_parser.set_defaults(command_type='delete-valid-fact')
+    dvf_parser.add_argument('fact', action='store', help='Fact Name')
+
     # Parse arguments
     args = parser.parse_args()
     if 'command_type' not in args:
@@ -151,6 +165,9 @@ def main():
 
     elif args.command_type == 'generate':
         do_generate(table_client, args.config_file)
+
+    elif args.command_type == 'add-valid-fact':
+        do_add_valid_fact(table_client, args.fact)
     
     else:
         print("Invalid command")
