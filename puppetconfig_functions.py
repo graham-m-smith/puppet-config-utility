@@ -207,3 +207,28 @@ def do_add_valid_fact(table_client, fact):
         sys.exit(1)
 
     print("Valid Fact", fact, "added to configuration")
+
+# -----------------------------------------------------------------------------
+# Function to list valid facts
+# -----------------------------------------------------------------------------
+def do_list_valid_fact(table_client):
+
+    # Get data from Azure Table
+    query = f"PartitionKey eq '{PUPPETVF_PK}'"
+
+    try:
+        data = table_client.query_entities(query)
+    except HttpResponseError as err:
+        print("Error getting list of valid facts")
+        print(err)
+        sys.exit(2)
+
+    table = PrettyTable()
+    table.field_names = ['Valid Facts']
+    table.align = 'l'
+
+    for record in data:
+        fact = record['RowKey']
+        table.add_row([fact])
+
+    print(table)

@@ -168,6 +168,9 @@ def main():
 
     elif args.command_type == 'add-valid-fact':
         do_add_valid_fact(table_client, args.fact)
+
+    elif args.command_type == 'list-valid-fact':
+        do_list_valid_fact(table_client)
     
     else:
         print("Invalid command")
