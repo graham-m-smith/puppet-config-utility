@@ -292,8 +292,8 @@ def do_add_valid_fact_value(table_client, fact, value):
     record = {}
     record['PartitionKey'] = PUPPETVFV_PK
     record['RowKey'] = str(uuid.uuid4())
-    record['VFV-Fact'] = fact
-    record['VFV-Value'] = value
+    record['VFVFact'] = fact
+    record['VFVValue'] = value
 
     # Check if fact/value combination already exists
 
