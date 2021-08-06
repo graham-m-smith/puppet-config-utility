@@ -297,6 +297,8 @@ def do_add_valid_fact_value(table_client, fact, value):
 
     # Check if fact/value combination already exists
 
+    check_valid_fact_value_exists(table_client, fact, value)
+
     # Add record to Azure table
     try:
         response = table_client.create_entity(entity=record)
@@ -305,3 +307,19 @@ def do_add_valid_fact_value(table_client, fact, value):
         sys.exit(1)
 
     print("Valid Fact Value", value, "added to fact", fact)
+
+
+def check_valid_fact_value_exists(table_client, fact, value):
+
+    # Get data from Azure Table
+    query = f"PartitionKey eq '{PUPPETVFV_PK}' and Fact eq '{fact}'"
+
+    try:
+        data = table_client.query_entities(query)
+    except HttpResponseError as err:
+        print("Error getting fact values")
+        print(err)
+        sys.exit(2)
+
+    for record in data:
+        print(record)
