@@ -369,13 +369,18 @@ def do_list_valid_fact_value(table_client, fact):
     table = PrettyTable()
     table.field_names = [f'Valid Values for fact {fact}']
     table.align = 'l'
+    record_count = 0
 
     # Add data to table
     for record in data:
-        print(record)
+        record_count += 1
         value = record['VFVValue']
         table.add_row([value])
 
     # Display table
-    print(table)
+    if record_count > 0:
+        print(table)
+    else:
+        print("No valid values for fact", fact)
+
   
