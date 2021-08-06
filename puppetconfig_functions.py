@@ -372,6 +372,7 @@ def do_list_valid_fact_value(table_client, fact):
 
     # Add data to table
     for record in data:
+        print(record)
         value = record['VFVValue']
         table.add_row([value])
 
