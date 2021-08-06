@@ -325,9 +325,10 @@ def check_valid_fact_value_exists(table_client, fact, value):
     try:
         data = table_client.query_entities(query)
     except HttpResponseError as err:
+        print("fact does not exist")
         fact_value_exists = False
 
     for record in data:
         print(record)
-        
+
     return fact_value_exists
