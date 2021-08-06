@@ -236,6 +236,7 @@ def do_list_valid_fact(table_client):
 # -----------------------------------------------------------------------------
 # Functiom to delete valid fact
 # - will need functionality to remove valid fact values if they exist
+# - will need functionality to check if this is being used by any machines
 # -----------------------------------------------------------------------------
 def do_delete_valid_fact(table_client, fact):
 
