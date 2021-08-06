@@ -19,9 +19,9 @@
 # additional commands
 #   list-machines-with-fact <fact> --show-value
 #   list-machines --table --columns=3
-#   add-valid-fact <fact>
-#   delete-valid-fact <fact>
-#   list-valid-fact
+#   add-valid-fact <fact> *DONE*
+#   delete-valid-fact <fact> *PARTIAL*
+#   list-valid-fact *DONE*
 #   add-valid-fact-value <fact> <value>
 #   delete-valid-fact-value <fact> <value>
 #   list-valid-fact-value <fact>
