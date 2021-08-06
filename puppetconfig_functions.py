@@ -344,3 +344,37 @@ def get_record_count(item):
         record_count += 1
 
     return record_count
+
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+def do_list_valid_fact_value(table_client, fact):
+
+    # Get data from Azure Table
+    query = f"PartitionKey eq '{PUPPETVFV_PK}' and VFVFact eq '{fact}'"
+
+    try:
+        data = table_client.query_entities(query)
+    except HttpResponseError as err:
+        print("error with query")
+        print(query)
+        print(err)
+        sys.exit(2)
+
+    record_count = get_record_count(data)
+    if record_count == 0:
+        print("No valid values for fact", fact)
+        sys.exit(0)
+
+    # Create table to display data
+    table = PrettyTable()
+    table.field_names = [f'Valid Values for fact {fact}']
+    table.align = 'l'
+
+    # Add data to table
+    for record in data:
+        value = record['VFVValue']
+        table.add_row([value])
+
+    # Display table
+    print(table)
+  

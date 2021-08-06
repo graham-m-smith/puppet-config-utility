@@ -22,7 +22,7 @@
 #   add-valid-fact <fact> *DONE*
 #   delete-valid-fact <fact> *PARTIAL*
 #   list-valid-fact *DONE*
-#   add-valid-fact-value <fact> <value>
+#   add-valid-fact-value <fact> <value> *DONE*
 #   delete-valid-fact-value <fact> <value>
 #   list-valid-fact-value <fact>
 # check machine facts against valid fact list
@@ -125,6 +125,11 @@ def main():
     avfv_parser.add_argument('fact', action='store', help='Fact Name')
     avfv_parser.add_argument('value', action='store', help='Valid Value')
 
+    # list-valid-fact-value command
+    lvfv_parser = subparsers.add_parser('list-valid-fact-value', help='List valid fact values')
+    lvfv_parser.set_defaults(command_type='list-valid-fact-value')
+    lvfv_parser.add_argument('fact', action='store', help='Fact Name')
+
     # Parse arguments
     args = parser.parse_args()
     if 'command_type' not in args:
@@ -184,6 +189,9 @@ def main():
     elif args.command_type == 'add-valid-fact-value':
         do_add_valid_fact_value(table_client, args.fact, args.value)
     
+    elif args.command_type == 'list-valid-fact-value':
+        do_list_valid_fact_value(table_client, args.fact)
+
     else:
         print("Invalid command")
         parser.print_help()
