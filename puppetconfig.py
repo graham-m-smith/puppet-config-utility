@@ -24,7 +24,7 @@
 #   list-valid-fact *DONE*
 #   add-valid-fact-value <fact> <value> *DONE*
 #   delete-valid-fact-value <fact> <value>
-#   list-valid-fact-value <fact>
+#   list-valid-fact-value <fact> *DONE*
 # check machine facts against valid fact list
 # check machine fact value against valid fact value list
 # -----------------------------------------------------------------------------
