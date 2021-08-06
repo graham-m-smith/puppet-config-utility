@@ -297,19 +297,26 @@ def do_add_valid_fact_value(table_client, fact, value):
 
     # Check if fact/value combination already exists
 
-    check_valid_fact_value_exists(table_client, fact, value)
+    if check_valid_fact_value_exists(table_client, fact, value) == True:
+        print("Value", value, "for fact", fact, "already exists")
+        sys.exit(1)
 
     # Add record to Azure table
     try:
         response = table_client.create_entity(entity=record)
     except ResourceExistsError:
-        print("Valid Fact Value", value, "already exists for fact", fact)
+        print("Something has gone wrong")
         sys.exit(1)
 
     print("Valid Fact Value", value, "added to fact", fact)
 
 
+# -----------------------------------------------------------------------------
+# Check if a valid fact value exists
+# -----------------------------------------------------------------------------
 def check_valid_fact_value_exists(table_client, fact, value):
+
+    fact_value_exists = True
 
     # Get data from Azure Table
     query = f"PartitionKey eq '{PUPPETVFV_PK}' and VFVFact eq '{fact}' and VFVValue eq '{value}'"
@@ -318,9 +325,6 @@ def check_valid_fact_value_exists(table_client, fact, value):
     try:
         data = table_client.query_entities(query)
     except HttpResponseError as err:
-        print("Error getting fact values")
-        print(err)
-        sys.exit(2)
+        fact_value_exists = False
 
-    for record in data:
-        print(record)
+    return fact_value_exists
