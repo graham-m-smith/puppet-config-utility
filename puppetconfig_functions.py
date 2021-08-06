@@ -328,6 +328,7 @@ def check_valid_fact_value_exists(table_client, fact, value):
         print("fact does not exist")
         fact_value_exists = False
 
+    print(data.count)
     for record in data:
         print(record)
 
