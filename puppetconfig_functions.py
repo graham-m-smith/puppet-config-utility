@@ -296,7 +296,6 @@ def do_add_valid_fact_value(table_client, fact, value):
     record['VFVValue'] = value
 
     # Check if fact/value combination already exists
-
     if check_valid_fact_value_exists(table_client, fact, value) == True:
         print("Value", value, "for fact", fact, "already exists")
         sys.exit(1)
