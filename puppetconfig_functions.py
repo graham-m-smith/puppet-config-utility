@@ -316,22 +316,32 @@ def do_add_valid_fact_value(table_client, fact, value):
 # -----------------------------------------------------------------------------
 def check_valid_fact_value_exists(table_client, fact, value):
 
-    fact_value_exists = True
-
     # Get data from Azure Table
     query = f"PartitionKey eq '{PUPPETVFV_PK}' and VFVFact eq '{fact}' and VFVValue eq '{value}'"
-    print(query)
 
     try:
         data = table_client.query_entities(query)
     except HttpResponseError as err:
-        print("fact does not exist")
+        print("error with query")
+        print(query)
+        print(err)
+        sys.exit(2)
+
+    record_count = get_record_count(data)
+    if record_count == 0:
         fact_value_exists = False
-
-    count = 0        
-    for record in data:
-        count += 1
-
-    print("count", count)
+    else:
+        fact_value_exists = True
 
     return fact_value_exists
+
+# -----------------------------------------------------------------------------
+# Function to return number of records
+# -----------------------------------------------------------------------------
+def get_record_count(item):
+
+    record_count = 0
+    for entity in item:
+        record_count += 1
+
+    return record_count
