@@ -327,4 +327,5 @@ def check_valid_fact_value_exists(table_client, fact, value):
     except HttpResponseError as err:
         fact_value_exists = False
 
+    print(data)
     return fact_value_exists
