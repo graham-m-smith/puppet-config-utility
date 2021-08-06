@@ -313,6 +313,7 @@ def check_valid_fact_value_exists(table_client, fact, value):
 
     # Get data from Azure Table
     query = f"PartitionKey eq '{PUPPETVFV_PK}' and Fact eq '{fact}'"
+    print(query)
 
     try:
         data = table_client.query_entities(query)
