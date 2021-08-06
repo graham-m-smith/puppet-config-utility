@@ -330,7 +330,7 @@ def check_valid_fact_value_exists(table_client, fact, value):
 
     count = 0        
     for record in data:
-        count++
+        count += 1
 
     print("count", count)
 
