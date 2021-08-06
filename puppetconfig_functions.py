@@ -3,7 +3,8 @@
 # -----------------------------------------------------------------------------
 import sys
 import os
-from puppetconfig_constants import PUPPETCFG_PK, PUPPETVF_PK
+import uuid
+from puppetconfig_constants import PUPPETCFG_PK, PUPPETVF_PK, PUPPETVFV_PK
 
 # External Modules
 
@@ -200,6 +201,7 @@ def do_add_valid_fact(table_client, fact):
     record['PartitionKey'] = PUPPETVF_PK
     record['RowKey'] = fact
 
+    # Add record to Azure table
     try:
         response = table_client.create_entity(entity=record)
     except ResourceExistsError:
@@ -223,14 +225,17 @@ def do_list_valid_fact(table_client):
         print(err)
         sys.exit(2)
 
+    # Create table to display data
     table = PrettyTable()
     table.field_names = ['Valid Facts']
     table.align = 'l'
 
+    # Add data to table
     for record in data:
         fact = record['RowKey']
         table.add_row([fact])
 
+    # Display table
     print(table)
 
 # -----------------------------------------------------------------------------
@@ -240,12 +245,14 @@ def do_list_valid_fact(table_client):
 # -----------------------------------------------------------------------------
 def do_delete_valid_fact(table_client, fact):
 
+    # Check if fact exists
     try:
         data = table_client.get_entity(PUPPETVF_PK, fact)
     except HttpResponseError as err:
         print("Valid Fact", fact, "does not exist")
         sys.exit(1)
 
+    # Delete fact from Azure table
     try:
         table_client.delete_entity(partition_key=PUPPETVF_PK, row_key=fact)
     except HttpResponseError as err:
@@ -254,3 +261,47 @@ def do_delete_valid_fact(table_client, fact):
         sys.exit(2)
 
     print("Valid Fact", fact, "deleted")
+
+# -----------------------------------------------------------------------------
+# Check if a fact exists
+# -----------------------------------------------------------------------------
+def check_fact_exists(table_client, fact):
+
+    fact_exists = True
+
+    # Check if fact exists
+    try:
+        data = table_client.get_entity(PUPPETVF_PK, fact)
+    except HttpResponseError as err:
+        fact_exists = False
+    
+    return fact_exists
+
+# -----------------------------------------------------------------------------
+# Function to add a valid fact value
+# -----------------------------------------------------------------------------
+def do_add_valid_fact_value(table_client, fact, value):
+
+    # Check if this is a valid fact
+
+    if not check_fact_exists(table_client, fact):
+        print("Fact", fact, "does not exist")
+        sys.exit(1)
+
+    # Create new entity
+    record = {}
+    record['PartitionKey'] = PUPPETVFV_PK
+    record['RowKey'] = str(uuid.uuid4())
+    record['Fact'] = fact
+    record['Value'] = value
+
+    # Check if fact/value combination already exists
+
+    # Add record to Azure table
+    try:
+        response = table_client.create_entity(entity=record)
+    except ResourceExistsError:
+        print("Valid Fact Value", value, "already exists for fact", fact)
+        sys.exit(1)
+
+    print("Valid Fact Value", value, "added to fact", fact)
