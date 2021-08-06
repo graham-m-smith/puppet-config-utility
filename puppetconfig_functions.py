@@ -346,6 +346,7 @@ def get_record_count(item):
     return record_count
 
 # -----------------------------------------------------------------------------
+# Function to return list of valid values for specified fact
 # -----------------------------------------------------------------------------
 def do_list_valid_fact_value(table_client, fact):
 
@@ -359,11 +360,6 @@ def do_list_valid_fact_value(table_client, fact):
         print(query)
         print(err)
         sys.exit(2)
-
-    #record_count = get_record_count(data)
-    #if record_count == 0:
-    #    print("No valid values for fact", fact)
-    #    sys.exit(0)
 
     # Create table to display data
     table = PrettyTable()
