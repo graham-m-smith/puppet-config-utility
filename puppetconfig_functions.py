@@ -316,7 +316,7 @@ def check_value(table_client, fact, value):
 
     valid_value = False
 
-    query = f"PartitionKey eq '{PUPPETVFV_PK}' and VVFact eq '{fact}' and VVValue eq '{value}'"
+    query = f"PartitionKey eq '{PUPPETVFV_PK}' and VFFact eq '{fact}' and VFValue eq '{value}'"
     try:
         data = table_client.query_entities(query)
     except HttpResponseError as err:
