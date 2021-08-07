@@ -76,7 +76,7 @@ def do_list_machines_with_fact(table_client, fact, value):
     print("fact", fact)
     print("value", value)
 
-    if value == 'None':
+    if value == '':
         query = f"PartitionKey eq '{PUPPETCFG_PK}' and {fact} ne ''"
     else:
         query = f"PartitionKey eq '{PUPPETCFG_PK}' and {fact} eq '{value}'"
