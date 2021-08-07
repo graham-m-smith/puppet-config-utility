@@ -200,6 +200,7 @@ def do_add_valid_fact(table_client, fact):
     record = {}
     record['PartitionKey'] = PUPPETVF_PK
     record['RowKey'] = fact
+    record['ValidValues'] = 'no'
 
     # Add record to Azure table
     try:
