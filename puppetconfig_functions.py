@@ -4,7 +4,7 @@
 import sys
 import os
 import uuid
-from puppetconfig_constants import PUPPETCFG_PK, PUPPETVF_PK, PUPPETVFV_PK
+from puppetconfig_constants import PUPPETCFG_PK, PUPPETVF_PK, PUPPETVFV_PK, DEBUG_FLAG
 
 # External Modules
 
@@ -51,10 +51,9 @@ def get_config(config_file):
 # -----------------------------------------------------------------------------
 def do_list_machines(table_client):
 
-    global debug_flag
     # Get data from Azure Table
     query = f"PartitionKey eq '{PUPPETCFG_PK}'"
-    if debug_flag:
+    if DEBUG_FLAG:
         print(query)
 
     try:
