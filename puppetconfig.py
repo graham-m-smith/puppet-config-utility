@@ -25,8 +25,8 @@
 #   add-valid-fact-value <fact> <value> *DONE*
 #   delete-valid-fact-value <fact> <value> *DONE*
 #   list-valid-fact-value <fact> *DONE*
-# check machine facts against valid fact list
-# check machine fact value against valid fact value list
+# check machine facts against valid fact list *DONE*
+# check machine fact value against valid fact value list *DONE*
 # -----------------------------------------------------------------------------
 
 # -----------------------------------------------------------------------------
@@ -164,7 +164,7 @@ def main():
     # Perform function here
 
     if args.command_type == 'list-machines':
-        do_list(table_client)
+        do_list_machines(table_client)
 
     elif args.command_type == 'show-machine':
         do_show_machine(table_client, args.machine)

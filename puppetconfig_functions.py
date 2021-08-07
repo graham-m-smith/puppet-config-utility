@@ -49,7 +49,7 @@ def get_config(config_file):
 # -----------------------------------------------------------------------------
 # Function to list the machines in the Azure table
 # -----------------------------------------------------------------------------
-def do_list(table_client):
+def do_list_machines(table_client):
 
     # Get data from Azure Table
     query = f"PartitionKey eq '{PUPPETCFG_PK}'"
