@@ -86,12 +86,13 @@ def do_list_machines_with_fact(table_client, fact, show_value):
         sys.exit(2)
 
     table = PrettyTable()
-    table.field_names = ['Machine']
+    table.field_names = ['Machine', fact]
     table.align = 'l'
 
     for record in data:
         machine = record['RowKey']
-        table.add_row([machine])
+        value = record[fact]
+        table.add_row([machine, value])
 
     print(table)
 
