@@ -130,6 +130,13 @@ def main():
     lvfv_parser.set_defaults(command_type='list-valid-fact-value')
     lvfv_parser.add_argument('fact', action='store', help='Fact Name')
 
+    # delete-valid-fact-value command
+    dvfv_parser = subparsers.add_parser('delete-valid-fact-value', help='Delete a valid fact value')
+    dvfv_parser.set_defaults(command_type='delete-valid-fact-value')
+    dvfv_parser.add_argument('fact', action='store', help='Fact Name')
+    dvfv_parser.add_argument('value', action='store', help='Valid Value To Delete')
+
+
     # Parse arguments
     args = parser.parse_args()
     if 'command_type' not in args:
@@ -191,6 +198,9 @@ def main():
     
     elif args.command_type == 'list-valid-fact-value':
         do_list_valid_fact_value(table_client, args.fact)
+
+    elif args.command_type == 'delete-valid-fact-value':
+        do_delete_valid_fact_value(table_client, args.fact, args.value)
 
     else:
         print("Invalid command")

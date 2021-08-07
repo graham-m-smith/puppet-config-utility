@@ -319,9 +319,7 @@ def do_add_valid_fact_value(table_client, fact, value):
         print(err)
         sys.exit(2)
 
-
     print("Valid Fact Value", value, "added to fact", fact)
-
 
 # -----------------------------------------------------------------------------
 # Check if a valid fact value exists
@@ -393,3 +391,79 @@ def do_list_valid_fact_value(table_client, fact):
         print("No valid values for fact", fact)
 
   
+# -----------------------------------------------------------------------------
+# Function to delete a valid value for a fact
+# -----------------------------------------------------------------------------
+def do_delete_valid_fact_value(table_client, fact, value):
+
+    # Check if this fact/value combination exists
+
+    if check_valid_fact_value_exists(table_client, fact, value) == False:
+        print("Value", value, "for fact", fact, "does not exist")
+        sys.exit(1)
+
+    # Get data from Azure Table
+    query = f"PartitionKey eq '{PUPPETVFV_PK}' and VFVFact eq '{fact}' and VFVValue eq '{value}'"
+
+    try:
+        data = table_client.query_entities(query)
+    except HttpResponseError as err:
+        print("error with query")
+        print(query)
+        print(err)
+        sys.exit(2)
+
+    # Delete Record
+    for record in data:
+        row_key = record['RowKey']
+        try:
+            table_client.delete_entity(partition_key=PUPPETVFV_PK, row_key=row_key)
+        except HttpResponseError as err:
+            print("Error deleting valid fact", fact)
+            print(err)
+            sys.exit(2)
+
+    # How many valid values for this fact
+    num_valid_values = get_num_valid_values(table_client, fact)
+
+    # Update fact record if no valid values
+    if num_valid_values == 0:
+        try:
+            fact_entity =  table_client.get_entity(PUPPETVF_PK, fact)
+        except HttpResponseError as err:
+            print("Error")
+            print(err)
+            sys.exit(2)
+
+        fact_entity['ValidValues'] = 'no'
+
+        try:
+            table_client.update_entity(mode=UpdateMode.REPLACE, entity=fact_entity)
+        except HttpResponseError as err:
+            print("Error updating record for", fact)
+            print(err)
+            sys.exit(2)
+
+    print("Value", value, "removed from fact", fact)
+
+
+
+# -----------------------------------------------------------------------------
+# Function to return number of valid values for specified fact
+# -----------------------------------------------------------------------------
+def get_num_valid_values(table_client, fact):
+
+    query = f"PartitionKey eq '{PUPPETVFV_PK}' and VFVFact eq '{fact}'"
+    try:
+        data = table_client.query_entities(query)
+    except HttpResponseError as err:
+        print("error with query")
+        print(query)
+        print(err)
+        sys.exit(2)
+
+    num_values = 0
+    for record in data:
+        num_values += 1
+
+    return num_values
