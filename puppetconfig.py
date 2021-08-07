@@ -23,7 +23,7 @@
 #   delete-valid-fact <fact> *PARTIAL*
 #   list-valid-fact *DONE*
 #   add-valid-fact-value <fact> <value> *DONE*
-#   delete-valid-fact-value <fact> <value>
+#   delete-valid-fact-value <fact> <value> *DONE*
 #   list-valid-fact-value <fact> *DONE*
 # check machine facts against valid fact list
 # check machine fact value against valid fact value list
