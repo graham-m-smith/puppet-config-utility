@@ -71,12 +71,12 @@ def do_list_machines(table_client):
 
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
-def do_list_machines_with_fact(table_client, fact, show_value):
-    print("fact", fact)
-    print("show_value", show_value)
+def do_list_machines_with_fact(table_client, fact, value):
 
+    print("fact", fact)
+    print("value", value)
+    
     query = f"PartitionKey eq '{PUPPETCFG_PK}' and {fact} ne ''"
-    print(query)
 
     try:
         data = table_client.query_entities(query)
