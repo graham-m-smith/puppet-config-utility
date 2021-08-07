@@ -52,7 +52,6 @@ def do_list_machines(table_client):
 
     # Get data from Azure Table
     query = f"PartitionKey eq '{PUPPETCFG_PK}'"
-    print("DEBUG:", DEBUG)
     try:
         data = table_client.query_entities(query)
     except HttpResponseError as err:
