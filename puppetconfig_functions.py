@@ -111,7 +111,7 @@ def do_set_fact(table_client, machine, fact, value):
         sys.exit(1)
 
     # Is this a valid fact
-    if check_fact_exists(fact) == False:
+    if check_fact_exists(table_client, fact) == False:
         print("Invalid fact -", fact)
         sys.exit(2)
 
