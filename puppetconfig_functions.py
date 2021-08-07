@@ -75,6 +75,18 @@ def do_list_machines_with_fact(table_client, fact, show_value):
     print("fact", fact)
     print("show_value", show_value)
 
+    query = f"PartitionKey eq '{PUPPETCFG_PK}' and {fact} ne ''"
+    print(query)
+
+    try:
+        data = table_client.query_entities(query)
+    except HttpResponseError as err:
+        print("Error getting list of machines")
+        print(err)
+        sys.exit(2)
+
+    for record in data:
+        print(record)
 
 # -----------------------------------------------------------------------------
 # Function to list the facts for a specific machine
