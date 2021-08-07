@@ -228,13 +228,14 @@ def do_list_valid_fact(table_client):
 
     # Create table to display data
     table = PrettyTable()
-    table.field_names = ['Valid Facts']
+    table.field_names = ['Valid Facts', 'Has List Of Valid Values']
     table.align = 'l'
 
     # Add data to table
     for record in data:
         fact = record['RowKey']
-        table.add_row([fact])
+        valid_values = record['ValidValues']
+        table.add_row([fact, valid_values])
 
     # Display table
     print(table)
