@@ -81,6 +81,7 @@ def do_list_machines_with_fact(table_client, fact, value):
     else:
         query = f"PartitionKey eq '{PUPPETCFG_PK}' and {fact} eq '{value}'"
 
+    print(query)
 
     try:
         data = table_client.query_entities(query)
