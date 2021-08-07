@@ -110,6 +110,20 @@ def do_set_fact(table_client, machine, fact, value):
         print("Machine", machine, "does not exist")
         sys.exit(1)
 
+    # Is this a valid fact
+    if check_fact_exists(fact) == False:
+        print("Invalid fact -", fact)
+        sys.exit(2)
+
+    # Is there a list of valid values for this fact?
+    has_valid_values = check_fact_has_valid_values(table_client, fact)
+    if  has_valid_values == True:
+        # Check value is valid
+        value_is_valid = check_value(table_client, fact, value)
+        if value_is_valid == False:
+            print('Value', value, "for fact", fact, "is not valid")
+            sys.exit(2)
+        
     # Add the fact to the record
     record[fact] = value
 
@@ -280,6 +294,43 @@ def check_fact_exists(table_client, fact):
     return fact_exists
 
 # -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+def check_fact_has_valid_values(table_client, fact):
+
+    has_valid_values = False
+
+    try:
+        fact_entity = table_client.get_entity(PUPPETVF_PK, fact)
+    except HttpResponseError as err:
+        print(err)
+        sys.exit(2)
+
+    if fact_entity['ValidValues'] == 'yes':
+        has_valid_values = True
+
+    return has_valid_values
+
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+def check_value(table_client, fact, value):
+
+    valid_value = False
+
+    query = f"PartitionKey eq '{PUPPETVFV_PK}' and VVFact eq '{fact}' and VVValue eq '{value}'"
+    try:
+        data = table_client.query_entities(query)
+    except HttpResponseError as err:
+        print("error with query")
+        print(query)
+        print(err)
+        sys.exit(2)
+
+    if get_record_count(data) > 0:
+        valid_value = True
+    
+    return valid_value
+
+# -----------------------------------------------------------------------------
 # Function to add a valid fact value
 # -----------------------------------------------------------------------------
 def do_add_valid_fact_value(table_client, fact, value):
@@ -445,8 +496,6 @@ def do_delete_valid_fact_value(table_client, fact, value):
             sys.exit(2)
 
     print("Value", value, "removed from fact", fact)
-
-
 
 # -----------------------------------------------------------------------------
 # Function to return number of valid values for specified fact
