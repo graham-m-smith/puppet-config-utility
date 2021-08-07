@@ -51,9 +51,10 @@ def get_config(config_file):
 # -----------------------------------------------------------------------------
 def do_list_machines(table_client):
 
+    global debug_flag
     # Get data from Azure Table
     query = f"PartitionKey eq '{PUPPETCFG_PK}'"
-    if debug:
+    if debug_flag:
         print(query)
 
     try:
