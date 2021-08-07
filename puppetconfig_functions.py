@@ -309,6 +309,17 @@ def do_add_valid_fact_value(table_client, fact, value):
         print("Something has gone wrong")
         sys.exit(1)
 
+    # Update fact record to indicate it has valid values
+    data = table_client.get_entity(PUPPETVF_PK, fact)
+    data['ValidValues'] = 'yes'
+    try:
+        table_client.update_entity(mode=UpdateMode.REPLACE, entity=data)
+    except HttpResponseError as err:
+        print("Error updating record for", fact)
+        print(err)
+        sys.exit(2)
+
+
     print("Valid Fact Value", value, "added to fact", fact)
 
 
