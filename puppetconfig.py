@@ -37,7 +37,7 @@ import sys
 import argparse
 from puppetconfig_functions import *
 from puppetconfig_generate import *
-from puppetconfig_constants import DEFAULT_CONFIG_FILE, DEBUG_FLAG
+from puppetconfig_constants import DEFAULT_CONFIG_FILE
 
 # External Modules
 

@@ -4,7 +4,7 @@
 import sys
 import os
 import uuid
-from puppetconfig_constants import PUPPETCFG_PK, PUPPETVF_PK, PUPPETVFV_PK, DEBUG_FLAG
+from puppetconfig_constants import PUPPETCFG_PK, PUPPETVF_PK, PUPPETVFV_PK
 
 # External Modules
 
