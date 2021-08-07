@@ -11,5 +11,3 @@ PUPPETVFV_PK = 'PuppetCfgValidFactValue'
 
 # Default configuration file name
 DEFAULT_CONFIG_FILE = '/etc/puppetconfig.yml'
-
-DEBUG_FLAG = False

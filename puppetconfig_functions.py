@@ -32,6 +32,7 @@ except ModuleNotFoundError:
     print("Module prettytable not instaled [pip3 install prettytable]")
     sys.exit(2)
 
+DEBUG = os.environ['PUPPETCONFIG_DEBUG']
 
 # -----------------------------------------------------------------------------
 # Function to load configuration from yaml file
@@ -53,10 +54,7 @@ def do_list_machines(table_client):
 
     # Get data from Azure Table
     query = f"PartitionKey eq '{PUPPETCFG_PK}'"
-    print("debug2", DEBUG_FLAG)
-    if DEBUG_FLAG:
-        print(query)
-
+    print("DEBUG:", DEBUG)
     try:
         data = table_client.query_entities(query)
     except HttpResponseError as err:
