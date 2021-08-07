@@ -144,10 +144,10 @@ def main():
         parser.print_help()
         sys.exit(2)
 
-    if args.debug_flag:
-        DEBUG_FLAG = True
-
-    print("debug", DEBUG_FLAG)
+    if args.debug_flag == True:
+        os.environ['PUPPETCONFIG_DEBUG'] = "TRUE"
+    else:
+        os.environ['PUPPETCONFIG_DEBUG'] = "FALSE"
 
     # Load settings from config file
     cfg = get_config(args.config_file)
