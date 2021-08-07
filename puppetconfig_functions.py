@@ -70,6 +70,13 @@ def do_list_machines(table_client):
     print(table)
 
 # -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+def do_list_machines_with_fact(table_client, fact, show_value):
+    print("fact", fact)
+    print("show_value", show_value)
+
+
+# -----------------------------------------------------------------------------
 # Function to list the facts for a specific machine
 # -----------------------------------------------------------------------------
 def do_show_machine(table_client, machine):

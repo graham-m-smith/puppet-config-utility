@@ -73,6 +73,12 @@ def main():
     list_machines_parser = subparsers.add_parser('list-machines', help='List Machines')
     list_machines_parser.set_defaults(command_type='list-machines')
 
+    # list-machines-with-fact command
+    lmwf_parser = subparsers.add_parser('list-machines-with-fact', help='List Machines with specific fact')
+    lmwf_parser.set_defaults(command_type='list-machines-with-fact')
+    lmwf_parser.add_argument('fact', action='store', help='Fact Name')
+    lmwf_parser.add_argument('--show-value', action='store_true', dest='show_value')
+
     # show-machines command
     show_machine_parser = subparsers.add_parser('show-machine', help='Show Machine Detail')
     show_machine_parser.set_defaults(command_type='show-machine')
@@ -165,6 +171,9 @@ def main():
 
     if args.command_type == 'list-machines':
         do_list_machines(table_client)
+
+    elif args.command_type == 'list-machines-with-fact':
+        do_list_machines_with_fact(table_client, args.fact, args.show_value)
 
     elif args.command_type == 'show-machine':
         do_show_machine(table_client, args.machine)
