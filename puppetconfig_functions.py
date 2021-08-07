@@ -32,8 +32,6 @@ except ModuleNotFoundError:
     print("Module prettytable not instaled [pip3 install prettytable]")
     sys.exit(2)
 
-DEBUG = os.environ['PUPPETCONFIG_DEBUG']
-
 # -----------------------------------------------------------------------------
 # Function to load configuration from yaml file
 # -----------------------------------------------------------------------------
