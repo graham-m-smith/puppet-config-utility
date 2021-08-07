@@ -85,8 +85,15 @@ def do_list_machines_with_fact(table_client, fact, show_value):
         print(err)
         sys.exit(2)
 
+    table = PrettyTable()
+    table.field_names = ['Machine']
+    table.align = 'l'
+
     for record in data:
-        print(record)
+        machine = record['RowKey']
+        table.add_row([machine])
+
+    print(table)
 
 # -----------------------------------------------------------------------------
 # Function to list the facts for a specific machine
