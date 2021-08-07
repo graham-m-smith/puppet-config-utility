@@ -147,6 +147,8 @@ def main():
     if args.debug_flag:
         DEBUG_FLAG = True
 
+    print("debug", DEBUG_FLAG)
+
     # Load settings from config file
     cfg = get_config(args.config_file)
 
