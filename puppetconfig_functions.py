@@ -325,7 +325,9 @@ def check_value(table_client, fact, value):
         print(err)
         sys.exit(2)
 
-    if get_record_count(data) > 0:
+    record_count = get_record_count(data)
+    print("record_count", record_count)
+    if record_count > 0:
         valid_value = True
     
     return valid_value
