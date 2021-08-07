@@ -53,6 +53,8 @@ def do_list_machines(table_client):
 
     # Get data from Azure Table
     query = f"PartitionKey eq '{PUPPETCFG_PK}'"
+    if debug:
+        print(query)
 
     try:
         data = table_client.query_entities(query)

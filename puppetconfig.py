@@ -144,6 +144,12 @@ def main():
         parser.print_help()
         sys.exit(2)
 
+    global debug
+    if args.debug_flag:
+        debug = True
+    else:
+        debug = False
+
     # Load settings from config file
     cfg = get_config(args.config_file)
 
