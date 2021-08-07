@@ -61,9 +61,15 @@ def do_list_machines(table_client):
         print(err)
         sys.exit(2)
 
+    table = PrettyTable()
+    table.field_names = ['Machine List']
+    table.align = 'l'
+   
     for record in data:
         machine = record['RowKey']
-        print(machine)
+        table.add_row([machine])
+
+    print(table)
 
 # -----------------------------------------------------------------------------
 # Function to list the facts for a specific machine
