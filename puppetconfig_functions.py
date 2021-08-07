@@ -117,9 +117,11 @@ def do_set_fact(table_client, machine, fact, value):
 
     # Is there a list of valid values for this fact?
     has_valid_values = check_fact_has_valid_values(table_client, fact)
-    if  has_valid_values == True:
+    if has_valid_values == True:
+
         # Check value is valid
         value_is_valid = check_value(table_client, fact, value)
+
         if value_is_valid == False:
             print('Value', value, "for fact", fact, "is not valid")
             sys.exit(2)
@@ -294,6 +296,7 @@ def check_fact_exists(table_client, fact):
     return fact_exists
 
 # -----------------------------------------------------------------------------
+# Check if a fact has a list of valid values
 # -----------------------------------------------------------------------------
 def check_fact_has_valid_values(table_client, fact):
 
@@ -311,6 +314,7 @@ def check_fact_has_valid_values(table_client, fact):
     return has_valid_values
 
 # -----------------------------------------------------------------------------
+# Function to check if a fact value is valid
 # -----------------------------------------------------------------------------
 def check_value(table_client, fact, value):
 
@@ -325,9 +329,7 @@ def check_value(table_client, fact, value):
         print(err)
         sys.exit(2)
 
-    record_count = get_record_count(data)
-    print("record_count", record_count)
-    if record_count > 0:
+    if get_record_count(data) > 0:
         valid_value = True
     
     return valid_value
