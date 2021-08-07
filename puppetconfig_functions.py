@@ -70,18 +70,15 @@ def do_list_machines(table_client):
     print(table)
 
 # -----------------------------------------------------------------------------
+# Function to return machines that have a specific fact associate with them
+# Optionally, also filter by the value of that fact
 # -----------------------------------------------------------------------------
 def do_list_machines_with_fact(table_client, fact, value):
-
-    print("fact", fact)
-    print("value", value)
     
     if not value:
         query = f"PartitionKey eq '{PUPPETCFG_PK}' and {fact} ne ''"
     else:
         query = f"PartitionKey eq '{PUPPETCFG_PK}' and {fact} eq '{value}'"
-
-    print(query)
 
     try:
         data = table_client.query_entities(query)

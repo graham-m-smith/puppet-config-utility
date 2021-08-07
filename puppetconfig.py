@@ -17,8 +17,8 @@
 # debugging
 # validated list of facts & values - quality check = store in same table, different partition
 # additional commands
-#   list-machines-with-fact <fact> --show-value
-#   list-machines --table --columns=3
+#   list-machines-with-fact <fact> --value *DONE*
+#   list-machines --columns=3
 #   add-valid-fact <fact> *DONE*
 #   delete-valid-fact <fact> *PARTIAL*
 #   list-valid-fact *DONE*
@@ -78,7 +78,6 @@ def main():
     lmwf_parser.set_defaults(command_type='list-machines-with-fact')
     lmwf_parser.add_argument('fact', action='store', help='Fact Name')
     lmwf_parser.add_argument('--value', action='store', dest='value', help='Specific Value')
-
  
     # show-machines command
     show_machine_parser = subparsers.add_parser('show-machine', help='Show Machine Detail')
