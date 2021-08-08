@@ -60,6 +60,7 @@ except ModuleNotFoundError:
 # -----------------------------------------------------------------------------
 def main():
 
+    # Initialise Global Variables
     gbl.init()
 
     # Parse command line options
