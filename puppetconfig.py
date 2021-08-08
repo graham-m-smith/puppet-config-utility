@@ -145,14 +145,16 @@ def main():
     dvfv_parser.add_argument('fact', action='store', help='Fact Name')
     dvfv_parser.add_argument('value', action='store', help='Valid Value To Delete')
 
-    print("main DEBUG", g.DEBUG)
-
     # Parse arguments
     args = parser.parse_args()
     if 'command_type' not in args:
         print("No command specified")
         parser.print_help()
         sys.exit(2)
+
+    print("main DEBUG", g.DEBUG)
+    if args.debug_flag:
+        g.DEBUG = True
 
     # Load settings from config file
     cfg = get_config(args.config_file)
