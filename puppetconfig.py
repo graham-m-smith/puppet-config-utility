@@ -13,9 +13,8 @@
 # To Do:
 # -----------------------------------------------------------------------------
 # lock file for generate
-# logging
-# debugging
-# validated list of facts & values - quality check = store in same table, different partition
+# debugging *DONE*
+# validated list of facts & values - quality check = store in same table, different partition *DONE*
 # additional commands
 #   list-machines-with-fact <fact> --value *DONE*
 #   list-machines --columns=3
