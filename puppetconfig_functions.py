@@ -5,6 +5,7 @@ import sys
 import os
 import uuid
 from puppetconfig_constants import PUPPETCFG_PK, PUPPETVF_PK, PUPPETVFV_PK
+import puppetconfig_globals as g
 
 # External Modules
 
@@ -36,6 +37,8 @@ except ModuleNotFoundError:
 # Function to load configuration from yaml file
 # -----------------------------------------------------------------------------
 def get_config(config_file):
+    
+    print("get_config DEBUG", g.DEBUG)
     if not os.path.exists(config_file):
         print("Config file", config_file, "does not exist")
         sys.exit(2)

@@ -38,6 +38,7 @@ import argparse
 from puppetconfig_functions import *
 from puppetconfig_generate import *
 from puppetconfig_constants import DEFAULT_CONFIG_FILE
+import puppetconfig_globals as g
 
 # External Modules
 
@@ -58,6 +59,8 @@ except ModuleNotFoundError:
 # Main Function
 # -----------------------------------------------------------------------------
 def main():
+
+    g.init()
 
     # Parse command line options
 
@@ -142,6 +145,7 @@ def main():
     dvfv_parser.add_argument('fact', action='store', help='Fact Name')
     dvfv_parser.add_argument('value', action='store', help='Valid Value To Delete')
 
+    print("main DEBUG", g.DEBUG)
 
     # Parse arguments
     args = parser.parse_args()
