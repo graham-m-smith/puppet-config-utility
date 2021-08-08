@@ -60,7 +60,7 @@ except ModuleNotFoundError:
 # -----------------------------------------------------------------------------
 def main():
 
-    g.init()
+    gbl.init()
 
     # Parse command line options
 
