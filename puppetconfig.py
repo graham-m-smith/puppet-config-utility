@@ -38,7 +38,7 @@ import argparse
 from puppetconfig_functions import *
 from puppetconfig_generate import *
 from puppetconfig_constants import DEFAULT_CONFIG_FILE
-import puppetconfig_globals as g
+import puppetconfig_globals as gbl
 
 # External Modules
 
@@ -152,9 +152,11 @@ def main():
         parser.print_help()
         sys.exit(2)
 
-    print("main DEBUG", g.DEBUG)
     if args.debug_flag:
-        g.DEBUG = True
+        gbl.DEBUG = True
+
+    if args.verbose_flag:
+        gbl.VERBOSE = True
 
     # Load settings from config file
     cfg = get_config(args.config_file)

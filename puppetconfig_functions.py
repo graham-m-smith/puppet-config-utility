@@ -5,7 +5,7 @@ import sys
 import os
 import uuid
 from puppetconfig_constants import PUPPETCFG_PK, PUPPETVF_PK, PUPPETVFV_PK
-import puppetconfig_globals as g
+import puppetconfig_globals as gbl
 
 # External Modules
 
@@ -38,7 +38,6 @@ except ModuleNotFoundError:
 # -----------------------------------------------------------------------------
 def get_config(config_file):
     
-    print("get_config DEBUG", g.DEBUG)
     if not os.path.exists(config_file):
         print("Config file", config_file, "does not exist")
         sys.exit(2)
@@ -82,6 +81,9 @@ def do_list_machines_with_fact(table_client, fact, value):
         query = f"PartitionKey eq '{PUPPETCFG_PK}' and {fact} ne ''"
     else:
         query = f"PartitionKey eq '{PUPPETCFG_PK}' and {fact} eq '{value}'"
+
+    if gbl.DEBUG:
+        print("query", query)
 
     try:
         data = table_client.query_entities(query)
