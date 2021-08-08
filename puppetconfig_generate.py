@@ -11,6 +11,7 @@ from shutil import copyfile
 from time import strftime
 from puppetconfig_constants import PUPPETCFG_PK
 from puppetconfig_functions import get_config
+import puppetconfig_globals as gbl
 
 # External Modules
 
@@ -48,6 +49,10 @@ def do_generate(table_client, config_file):
     puppet_uid = pwd.getpwnam(puppet_user).pw_uid
     puppet_gid = grp.getgrnam(puppet_group).gr_gid
 
+    if gbl.VERBOSE:
+        print("yaml file is", yaml_file)
+        print("backup yaml file is", backup_yaml_file)
+
     yamldata = {
         'server::facts': {}
     }
@@ -57,11 +62,16 @@ def do_generate(table_client, config_file):
 
     # Create puppet facts directory id it doesn't exist
     if not path.exists(puppet_facts_dir):
+        if gbl.VERBOSE:
+            print("Cresting puppet facts directory", puppet_facts_dir)
         mkdir(puppet_facts_dir)
         chown(puppet_facts_dir, puppet_uid, puppet_gid)
 
     # Get data from Azure Table
     query = f"PartitionKey eq '{PUPPETCFG_PK}'"
+
+    if gbl.VERBOSE:
+        print("Getting data from Azure Table")
 
     try:
         data = table_client.query_entities(query)
@@ -93,25 +103,37 @@ def do_generate(table_client, config_file):
         nodedata[nodename] = noderecord
 
     # Build yaml data structure
+    if gbl.VERBOSE:
+        print("Building yaml data structure")
+
     for nodename in nodelist:
-        print("Adding node", nodename)
+        if gbl.VERBOSE:
+            print("Adding node", nodename)
+
         record = nodedata[nodename]
         yamldata['server::facts'][nodename] = {}
         for key in record.keys():
             value = record[key]
-            print("- Adding fact", key, "value", value)
+            if gbl.VERBOSE:
+                print("- Adding fact", key, "value", value)
+
             yamldata['server::facts'][nodename][key] = value
 
     # Backup existing yaml file
     if path.exists(yaml_file):
-        print("Backing up", yaml_file, "to", backup_yaml_file)
+        if gbl.VERBOSE:
+            print("Backing up", yaml_file, "to", backup_yaml_file)
+
         copyfile(yaml_file, backup_yaml_file)
 
     # Create yaml file
-    print("Creating", yaml_file, "file")
+    if gbl.VERBOSE:
+        print("Creating", yaml_file, "file")
+
     with io.open(yaml_file, 'w', encoding='utf8') as outfile:
         yaml.dump(yamldata, outfile, default_flow_style=False, allow_unicode=True)
 
     chown(yaml_file, puppet_uid, puppet_gid)
 
-    print("Completed")
+    if gbl.VERBOSE:
+        print("Completed")
