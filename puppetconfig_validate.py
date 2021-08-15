@@ -46,3 +46,7 @@ def do_validate(table_client, config_file):
         print(section)
         for node in facts[section]:
             print(f"- {node}")
+            for item in facts[section][node]:
+                value = facts[section][node][item]
+                print(f"-- {item} = {value}")
+
