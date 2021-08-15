@@ -36,6 +36,7 @@ import sys
 import argparse
 from puppetconfig_functions import *
 from puppetconfig_generate import *
+from puppetconfig_validate import *
 from puppetconfig_constants import DEFAULT_CONFIG_FILE
 import puppetconfig_globals as gbl
 
@@ -113,6 +114,10 @@ def main():
     # generate command
     generate_parser = subparsers.add_parser('generate', help='generate facts.yaml file')
     generate_parser.set_defaults(command_type='generate')
+
+    # validate command
+    validate_parser = subparsers.add_parser('validate', help='validate facts.yaml file')
+    validate_parser.set_defaults(command_type='validate')
 
     # add-valid-fact command
     avf_parser = subparsers.add_parser('add-valid-fact', help='Add a new valid fact')
@@ -200,6 +205,9 @@ def main():
 
     elif args.command_type == 'generate':
         do_generate(table_client, args.config_file)
+
+    elif args.command_type == 'validate':
+        do_validate(table_client, args.config_file)
 
     elif args.command_type == 'add-valid-fact':
         do_add_valid_fact(table_client, args.fact)

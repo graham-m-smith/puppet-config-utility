@@ -13,7 +13,9 @@ from puppetconfig_constants import PUPPETCFG_PK
 from puppetconfig_functions import get_config
 import puppetconfig_globals as gbl
 
+# -----------------------------------------------------------------------------
 # External Modules
+# -----------------------------------------------------------------------------
 
 try:
     import yaml
