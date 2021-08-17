@@ -70,7 +70,7 @@ def do_validate(table_client, config_file):
                     print(f"-- checking fact {fact}")
                 if check_fact_exists(table_client, fact) == False:
                     #print(f"** Fact {fact} is invalid")
-                    error_list.append(f"Fact {fact} is invalid")
+                    error_list.append(f"Fact {fact} is invalid for machine {node}")
                     validated = False
                 else:
                     # Does this fact have valid values?
@@ -86,11 +86,13 @@ def do_validate(table_client, config_file):
     else:
         print("Validation unsuccessful")
         table = PrettyTable()
-        table.field_names = ['Errors']
+        table.field_names = ['Error', 'Detail']
         table.align = 'l'
+        count = 1
 
         for error in error_list:
-            table.add_row([error])
+            table.add_row([count, error])
+            count += 1
 
         print(table)
 
