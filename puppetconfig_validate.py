@@ -86,7 +86,7 @@ def do_validate(table_client, config_file):
     else:
         print("Validation unsuccessful")
         table = PrettyTable()
-        table.field_names(['Errors'])
+        table.field_names = ['Errors']
         table.align = 'l'
 
         for error in error_list:
