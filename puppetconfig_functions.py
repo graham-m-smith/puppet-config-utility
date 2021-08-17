@@ -101,6 +101,21 @@ def do_list_machines_with_fact(table_client, fact, value):
     print(table)
 
 # -----------------------------------------------------------------------------
+# Functon to check if machine exists
+# -----------------------------------------------------------------------------
+def check_machine_exists(table_client, machine):
+
+    machine_exists = True
+
+    # Get data for this machine from Azure Table
+    try:
+        record = table_client.get_entity(PUPPETCFG_PK, machine)
+    except HttpResponseError as err:
+        machine_exists = False
+    
+    return machine_exists
+
+# -----------------------------------------------------------------------------
 # Function to list the facts for a specific machine
 # -----------------------------------------------------------------------------
 def do_show_machine(table_client, machine):

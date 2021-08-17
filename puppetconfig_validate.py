@@ -3,7 +3,7 @@
 # -----------------------------------------------------------------------------
 
 import sys
-from puppetconfig_functions import get_config
+from puppetconfig_functions import get_config, check_machine_exists, check_fact_exists, check_fact_has_valid_values, check_value
 import puppetconfig_globals as gbl
 
 # -----------------------------------------------------------------------------
@@ -38,15 +38,42 @@ def do_validate(table_client, config_file):
     # Load contents of yaml file
 
     with open(yaml_file, "r") as ymlfile:
-        facts = yaml.safe_load(ymlfile)
+        yaml_data = yaml.safe_load(ymlfile)
 
     # Iterate through the yaml data
 
-    for section in facts:
-        print(section)
-        for node in facts[section]:
-            print(f"- {node}")
-            for item in facts[section][node]:
-                value = facts[section][node][item]
-                print(f"-- {item} = {value}")
+    validated = True
 
+    for section in yaml_data:
+        print(section)
+        for node in yaml_data[section]:
+            print(f"- Checking node {node}")
+
+            # Check that node exists in the table
+            if check_machine_exists(table_client, node) == False:
+                print(f"* Machine {node} does not exist in table")
+                validated = False
+                continue
+
+            # Check facts for this machine
+            for fact in yaml_data[section][node]:
+                value = yaml_data[section][node][fact]
+                print(f"-- checking fact {fact}")
+                if check_fact_exists(table_client, fact) == False:
+                    print(f"** Fact {fact} is invalid")
+                    validated = False
+                else:
+                    # Does this fact have valid values?
+                    if check_fact_has_valid_values(table_client, fact) == True:
+                        # If so, check that the value is valid
+                        if check_value(table_client, fact, value) == False:
+                            print(f"** value {value} for fact {fact} is invalid")
+                            validated = False
+
+    print("Check complete")
+    if validated == True:
+        print("Validation successful")
+    else:
+        print("Validation unsuccessful")
+
+    return validated
