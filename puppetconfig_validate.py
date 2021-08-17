@@ -43,6 +43,7 @@ def do_validate(table_client, config_file):
     # Iterate through the yaml data
 
     validated = True
+    error_list = []
 
     for section in yaml_data:
         print(section)
@@ -52,7 +53,8 @@ def do_validate(table_client, config_file):
 
             # Check that node exists in the table
             if check_machine_exists(table_client, node) == False:
-                print(f"* Machine {node} does not exist in table")
+                #print(f"* Machine {node} does not exist in table")
+                error_list.append(f"Machine {node} does not exist in table")
                 validated = False
                 continue
 
@@ -62,14 +64,16 @@ def do_validate(table_client, config_file):
                 if gbl.VERBOSE:
                     print(f"-- checking fact {fact}")
                 if check_fact_exists(table_client, fact) == False:
-                    print(f"** Fact {fact} is invalid")
+                    #print(f"** Fact {fact} is invalid")
+                    error_list.append(f"Fact {fact} is invalid")
                     validated = False
                 else:
                     # Does this fact have valid values?
                     if check_fact_has_valid_values(table_client, fact) == True:
                         # If so, check that the value is valid
                         if check_value(table_client, fact, value) == False:
-                            print(f"** value {value} for fact {fact} is invalid")
+                            #print(f"** value {value} for fact {fact} on machine {node} is invalid")
+                            error_list.append(f"Value {value} for fact {fact} on machine {node} is invalid")
                             validated = False
 
     print("Check complete")
@@ -77,5 +81,7 @@ def do_validate(table_client, config_file):
         print("Validation successful")
     else:
         print("Validation unsuccessful")
+        for error in error_list:
+            print(error)
 
     return validated
