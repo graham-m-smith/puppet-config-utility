@@ -45,6 +45,8 @@ def do_validate(table_client, config_file):
     validated = True
     error_list = []
 
+    print("Starting validation")
+
     for section in yaml_data:
         print(section)
         for node in yaml_data[section]:
@@ -76,7 +78,7 @@ def do_validate(table_client, config_file):
                             error_list.append(f"Value {value} for fact {fact} on machine {node} is invalid")
                             validated = False
 
-    print("Check complete")
+    print("Validation complete")
     if validated == True:
         print("Validation successful")
     else:
