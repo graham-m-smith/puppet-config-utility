@@ -3,6 +3,8 @@
 # -----------------------------------------------------------------------------
 
 import sys
+
+from prettytable.prettytable import PrettyTable
 from puppetconfig_functions import get_config, check_machine_exists, check_fact_exists, check_fact_has_valid_values, check_value
 import puppetconfig_globals as gbl
 
@@ -48,7 +50,8 @@ def do_validate(table_client, config_file):
     print("Starting validation")
 
     for section in yaml_data:
-        print(section)
+
+        # Check machines
         for node in yaml_data[section]:
             if gbl.VERBOSE:
                 print(f"- Checking node {node}")
@@ -78,12 +81,17 @@ def do_validate(table_client, config_file):
                             error_list.append(f"Value {value} for fact {fact} on machine {node} is invalid")
                             validated = False
 
-    print("Validation complete")
     if validated == True:
         print("Validation successful")
     else:
         print("Validation unsuccessful")
+        table = PrettyTable()
+        table.field_names(['Errors'])
+        table.align = 'l'
+
         for error in error_list:
-            print(error)
+            table.add_row([error])
+
+        print(table)
 
     return validated
