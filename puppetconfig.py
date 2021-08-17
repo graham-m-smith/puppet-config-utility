@@ -13,19 +13,8 @@
 # To Do:
 # -----------------------------------------------------------------------------
 # lock file for generate
-# debugging *DONE*
-# validated list of facts & values - quality check = store in same table, different partition *DONE*
-# additional commands
-#   list-machines-with-fact <fact> --value *DONE*
-#   list-machines --columns=3
-#   add-valid-fact <fact> *DONE*
 #   delete-valid-fact <fact> *PARTIAL*
-#   list-valid-fact *DONE*
-#   add-valid-fact-value <fact> <value> *DONE*
-#   delete-valid-fact-value <fact> <value> *DONE*
-#   list-valid-fact-value <fact> *DONE*
-# check machine facts against valid fact list *DONE*
-# check machine fact value against valid fact value list *DONE*
+#   add-machine --facts=fact1:value1,fact2:value2 functionality
 # -----------------------------------------------------------------------------
 
 # -----------------------------------------------------------------------------

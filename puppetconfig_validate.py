@@ -3,8 +3,6 @@
 # -----------------------------------------------------------------------------
 
 import sys
-
-from prettytable.prettytable import PrettyTable
 from puppetconfig_functions import get_config, check_machine_exists, check_fact_exists, check_fact_has_valid_values, check_value
 import puppetconfig_globals as gbl
 
@@ -22,6 +20,12 @@ try:
     from azure.core.exceptions import HttpResponseError
 except:
     print("Module azure.core not instaled [pip3 install azure.core]")
+    sys.exit(2)
+
+try:
+    from prettytable import PrettyTable
+except ModuleNotFoundError:
+    print("Module prettytable not instaled [pip3 install prettytable]")
     sys.exit(2)
 
 # -----------------------------------------------------------------------------
@@ -58,7 +62,6 @@ def do_validate(table_client, config_file):
 
             # Check that node exists in the table
             if check_machine_exists(table_client, node) == False:
-                #print(f"* Machine {node} does not exist in table")
                 error_list.append(f"Machine {node} does not exist in table")
                 validated = False
                 continue
@@ -69,7 +72,6 @@ def do_validate(table_client, config_file):
                 if gbl.VERBOSE:
                     print(f"-- checking fact {fact}")
                 if check_fact_exists(table_client, fact) == False:
-                    #print(f"** Fact {fact} is invalid")
                     error_list.append(f"Fact {fact} is invalid for machine {node}")
                     validated = False
                 else:
@@ -77,7 +79,6 @@ def do_validate(table_client, config_file):
                     if check_fact_has_valid_values(table_client, fact) == True:
                         # If so, check that the value is valid
                         if check_value(table_client, fact, value) == False:
-                            #print(f"** value {value} for fact {fact} on machine {node} is invalid")
                             error_list.append(f"Value {value} for fact {fact} on machine {node} is invalid")
                             validated = False
 
