@@ -47,7 +47,8 @@ def do_validate(table_client, config_file):
     for section in yaml_data:
         print(section)
         for node in yaml_data[section]:
-            print(f"- Checking node {node}")
+            if gbl.VERBOSE:
+                print(f"- Checking node {node}")
 
             # Check that node exists in the table
             if check_machine_exists(table_client, node) == False:
@@ -58,7 +59,8 @@ def do_validate(table_client, config_file):
             # Check facts for this machine
             for fact in yaml_data[section][node]:
                 value = yaml_data[section][node][fact]
-                print(f"-- checking fact {fact}")
+                if gbl.VERBOSE:
+                    print(f"-- checking fact {fact}")
                 if check_fact_exists(table_client, fact) == False:
                     print(f"** Fact {fact} is invalid")
                     validated = False
