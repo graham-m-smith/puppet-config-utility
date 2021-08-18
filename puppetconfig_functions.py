@@ -259,6 +259,15 @@ def do_add_machine(table_client, machine, facts_values):
 
     print("Machine", machine, "added to configuration")
 
+    # Set facts
+    if facts_values != None:
+        for item in facts_values:
+            fact, value = item.split(':', 2)
+            if gbl.DEBUG:
+                print(f"setting fact = {fact} value = {value}")
+
+
+
 # -----------------------------------------------------------------------------
 # Function to delete a machine
 # -----------------------------------------------------------------------------
