@@ -226,13 +226,25 @@ def do_add_machine(table_client, machine, facts_values):
 
     if gbl.DEBUG:
         print(f"facts_values = {facts_values}")
-  
-        if facts_values != None:
-            for item in facts_values:
-                fact, value = item.split(':', 2)
+
+    # Validate facts/values if specifed
+    if facts_values != None:
+        for item in facts_values:
+            fact, value = item.split(':', 2)
+            if gbl.DEBUG:
                 print(f"fact = {fact} value = {value}")
-                
-        sys.exit(0)
+
+            # Check if this is a valid fact
+            if check_fact_exists(table_client, fact) == False:
+                print(f"Error: fact {fact} is not valid")
+                sys.exit(1)
+
+            # Check if this fact has a list of valid values
+            if check_fact_has_valid_values(table_client, fact) == True:
+                # If so, check if the value specified is valid
+                if check_value(table_client, fact, value) == False:
+                    print(f"Error: value {value} is invalid for fact {fact}")
+                    sys.exit(1)
 
     # Create new entity
     record = {}
