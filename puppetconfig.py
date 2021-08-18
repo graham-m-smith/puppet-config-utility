@@ -94,6 +94,7 @@ def main():
     add_machine_parser = subparsers.add_parser('add-machine', help='Add a new machine')
     add_machine_parser.set_defaults(command_type='add-machine')
     add_machine_parser.add_argument('machine', action='store', help='Machine Name')
+    add_machine_parser.add_argument('--facts', nargs='+', action='store', dest='facts_values', help='list of fact:value pairs')
 
     # delete-machine command
     delete_machine_parser = subparsers.add_parser('delete-machine', help='Delete a machine')
@@ -187,7 +188,7 @@ def main():
         do_delete_fact(table_client, args.machine, args.fact)
 
     elif args.command_type == 'add-machine':
-        do_add_machine(table_client, args.machine)
+        do_add_machine(table_client, args.machine, args.facts_values)
 
     elif args.command_type == 'delete-machine':
         do_delete_machine(table_client, args.machine)

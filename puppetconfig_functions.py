@@ -222,8 +222,11 @@ def do_delete_fact(table_client, machine, fact):
 # -----------------------------------------------------------------------------
 # Function to add a new machine
 # -----------------------------------------------------------------------------
-def do_add_machine(table_client, machine):
+def do_add_machine(table_client, machine, facts_values):
 
+    if gbl.DEBUG:
+        print(f"facts_values = {facts_values}")
+        
     # Create new entity
     record = {}
     record['PartitionKey'] = PUPPETCFG_PK
