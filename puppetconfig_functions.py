@@ -265,6 +265,8 @@ def do_add_machine(table_client, machine, facts_values):
             fact, value = item.split(':', 2)
             if gbl.DEBUG:
                 print(f"setting fact = {fact} value = {value}")
+            
+            do_set_fact(table_client, machine, fact, value)
 
 
 
