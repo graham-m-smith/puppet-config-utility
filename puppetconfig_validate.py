@@ -78,7 +78,7 @@ def do_validate(table_client, config_file):
                     # Does this fact have valid values?
                     if check_fact_has_valid_values(table_client, fact) == True:
                         # If so, check that the value is valid
-                        
+                        if check_value(table_client, fact, value) == False:
                             error_list.append(f"Value {value} for fact {fact} on machine {node} is invalid")
                             validated = False
 
