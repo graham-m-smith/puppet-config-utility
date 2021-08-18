@@ -226,6 +226,12 @@ def do_add_machine(table_client, machine, facts_values):
 
     if gbl.DEBUG:
         print(f"facts_values = {facts_values}")
+  
+        if facts_values != None:
+            for item in facts_values:
+                fact, value = item.split(':', 2)
+                print(f"fact = {fact} value = {value}")
+                
         sys.exit(0)
 
     # Create new entity
